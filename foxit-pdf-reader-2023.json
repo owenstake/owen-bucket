@@ -1,7 +1,10 @@
 {
     "##": "Using cdn06.foxitsoftware.com for better speed worldwide. (redirects to cdn06.foxitsoftware.com.cdn.cloudflare.net)",
-    "version": "12.1.2.15332",
-    "description": "Fast and feature rich PDF reader that offers a delightful reading experience.",
+    "version": "12.1.3.15356",
+    "description": [
+        "Fast and feature rich PDF reader that offers a delightful reading experience.",
+        "This 2023 version keep the bookmark edition function while the latest version has remove it."
+    ],
     "homepage": "https://www.foxit.com/pdf-reader/",
     "license": {
         "identifier": "Freeware",
@@ -17,7 +20,7 @@
     "shortcuts": [
         [
             "FoxitPDFReader.exe",
-            "Foxit PDF Reader 2022"
+            "Foxit PDF Reader 2023"
         ]
     ],
     "checkver": {
