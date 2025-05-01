@@ -1,0 +1,43 @@
+{
+    "version": "3.0.0.671",
+    "description": "微云是腾讯公司为用户精心打造的一项智能云服务, 您可以通过微云方便地在手机和电脑之间同步文件、推送照片和传输数据。",
+    "homepage": "https://www.weiyun.com/",
+    "license": {
+        "identifier": "Proprietary",
+        "url": "http://www.weiyun.com/xy.html"
+    },
+    "shortcuts": [
+        [
+            "Bin\\weiyunsync.exe",
+            "微云同步助手"
+        ]
+    ],
+    "installer": {
+        "script": [
+            "Remove-Item -Recurse -Force \"$dir\\`$*\" -ErrorAction SilentlyContinue | Out-Null",
+            "Move-Item \"$dir\\weiyunsync\\*\" \"$dir\" -ErrorAction SilentlyContinue | Out-Null",
+            "Remove-Item -Recurse -Force \"$dir\\weiyunsync\" -ErrorAction SilentlyContinue | Out-Null"
+        ]
+    },
+    "architecture": {
+        "64bit": {
+            "hash": "736cf7d2dca3449f71a93e9e5857a9efd4fd7c9b319cfbea116ca6418155cc58",
+            "url": "https://dldir1.qq.com/weiyun/WeiyunSyncInstall_Beta_1_3.0.0.671_20240204_154929_r0.exe#/dl.7z"
+        }
+    },
+    "post_install": [
+    ],
+    "pre_uninstall": [
+    ],
+    "checkver": {
+        "script": [
+            "$url = 'https://www.weiyun.com/download.html'",
+            "$resp = Invoke-WebRequest -Uri $url -TimeoutSec 10",
+            "$cont = $resp.Content",
+            "$pattern = 'https://jsonschema.qpic.cn.*/config'",
+            "$jsUrl = [regex]::Match($cont, $pattern).Value",
+            "(Invoke-WebRequest -Uri $jsUrl -TimeoutSec 10).Content"
+        ],
+        "jsonpath": "$.windows_sync.version"
+    }
+}
