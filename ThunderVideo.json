@@ -1,0 +1,17 @@
+{
+    "version": "7.0.3.92",
+    "description": "迅雷影音",
+    "homepage": "https://video.xunlei.com/",
+    "url": [
+        "https://xmp.down.sandai.net/xmp/XMPSetup7.0.3.92xmpgw.exe#/dl.7z"
+    ],
+    "hash": [
+        "865FF8B3AB851029372ADFBC4CBD51202B5946089E25B769EEB077195259A156"
+    ],
+    "shortcuts": [
+        [
+            "program\\xmp.exe",
+            "迅雷影音"
+        ]
+    ]
+}

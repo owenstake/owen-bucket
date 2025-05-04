@@ -1,0 +1,21 @@
+{
+    "version": "9.2",
+    "description": "酷我音乐PC去广告破解VIP版",
+    "homepage": "http://kuwo.cn",
+    "license": {
+        "identifier": "EULA",
+        "url": "http://www.kuwo.cn/static/page/license/license.html"
+    },
+    "url": [
+        "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/kuwo-v9.2-xhzyku.com.7z"
+    ],
+    "hash": [
+        "76a1ebfad85c577d964b4e5dcf81bd8c5f692f7653af5ce7f7a1d5d14cd5d550"
+    ],
+    "shortcuts": [
+        [
+            "KwMusic.exe",
+            "酷我音乐"
+        ]
+    ]
+}
