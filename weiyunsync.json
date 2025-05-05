@@ -12,13 +12,7 @@
             "微云同步助手"
         ]
     ],
-    "installer": {
-        "script": [
-            "Remove-Item -Recurse -Force \"$dir\\`$*\" -ErrorAction SilentlyContinue | Out-Null",
-            "Move-Item \"$dir\\weiyunsync\\*\" \"$dir\" -ErrorAction SilentlyContinue | Out-Null",
-            "Remove-Item -Recurse -Force \"$dir\\weiyunsync\" -ErrorAction SilentlyContinue | Out-Null"
-        ]
-    },
+    "extract_dir": "weiyunsync",
     "architecture": {
         "64bit": {
             "hash": "736cf7d2dca3449f71a93e9e5857a9efd4fd7c9b319cfbea116ca6418155cc58",

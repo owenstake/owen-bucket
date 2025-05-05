@@ -1,0 +1,23 @@
+{
+    "version": "1.0.4",
+    "description": "Singleinstance for concurrent running.",
+    "homepage": "https://github.com/owenstake/context-menu-launcher",
+    "hash": "9D8FAA631048BB70A68700DD9A40048CA1BF1D39A6FD2AAD9576009F389D0B5C",
+    "url": "https://github.com/owenstake/context-menu-launcher/releases/download/v1.0.4/singleinstance.exe",
+    "bin" : "singleinstance.exe",
+    "installer": {
+        "script": [
+            "Set-ItemProperty -Path HKCU:SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer `",
+            "                -Name  MultipleInvokePromptMinimum                                 `",
+            "                -Value 200                                                          "
+        ]
+    },
+    "uninstaller": {
+        "script": [
+            "Write-Output 'Set multi selection with context menu'",
+            "Set-ItemProperty -Path HKCU:SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer `",
+            "                -Name  MultipleInvokePromptMinimum                                 `",
+            "                -Value 15                                                          "
+        ]
+    }
+}

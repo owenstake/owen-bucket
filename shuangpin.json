@@ -1,0 +1,45 @@
+{
+    "version": "1.0",
+    "description": "Set xiaohe shuangpin for microsoft pinyin",
+    "homepage": "https://github.com/owenstake/owen-bucket",
+    "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+    "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+    "installer": {
+        "script": [
+            "[Microsoft.Win32.Registry]::SetValue(                                        ",
+            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
+            "    \"Enable Double Pinyin\",                                                ",
+            "    1,                                                                       ",
+            "    [microsoft.win32.RegistryValueKind]::DWord                               ",
+            ")                                                                            ",
+            "[Microsoft.Win32.Registry]::SetValue(                                        ",
+            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
+            "    \"DoublePinyinScheme\",                                                  ",
+            "    10,                                                                      ",
+            "    [microsoft.win32.RegistryValueKind]::DWord                               ",
+            ")                                                                            ",
+            "[Microsoft.Win32.Registry]::SetValue(                                        ",
+            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
+            "    \"UserDefinedDoublePinyinScheme0\",                                      ",
+            "    \"小鹤双拼*2*^*iuvdjhcwfg^xmlnpbksqszxkrltvyovt\"                        ",
+            ")                                                                            ",
+            "# set default mode as english. 0-chs, 1-eng                                  ",
+            "[Microsoft.Win32.Registry]::SetValue(                                        ",
+            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
+            "    \"Default Mode\",                                                        ",
+            "    1,                                                                       ",
+            "    [microsoft.win32.RegistryValueKind]::DWord                               ",
+            ")                                                                            "
+        ]
+    },
+    "uninstaller": {
+        "script": [
+            "[Microsoft.Win32.Registry]::SetValue(                                        ",
+            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
+            "    \"Enable Double Pinyin\",                                                ",
+            "    0,                                                                       ",
+            "    [microsoft.win32.RegistryValueKind]::DWord                               ",
+            ")                                                                            "
+        ]
+    }
+}

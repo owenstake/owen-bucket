@@ -1,0 +1,25 @@
+{
+    "version": "24.04.2",
+    "description": "wsl ubuntu",
+    "homepage": "https://ubuntu.com/desktop/wsl",
+    "url": "https://releases.ubuntu.com/noble/ubuntu-24.04.2-wsl-amd64.wsl",
+    "hash": "5D1EEA52103166F1C460DC012ED325C6EB31D2CE16EF6A00FFDFDA8E99E12F43",
+    "persist": "ubt24",
+    "post_install": [
+        "If (Test-Path $dir\\ubt24\\ext4.vhdx) {",
+        "    Info 'Restore from persist data'",
+        "    wsl --import-in-place ubt24 $dir\\ubt24\\ext4.vhdx",
+        "} else {",
+        "    wsl --import ubt24 $dir\\ubt24 $dir\\ubuntu-24.04.2-wsl-amd64.wsl",
+        "}"
+    ],
+    "uninstaller": {
+        "script": [
+            "wsl --shutdown ubt24",
+            "mv $dir\\ubt24\\ext4.vhdx $dir\\ubt24\\ext4-bak.vhdx",
+            "wsl --unregister ubt24",
+            "mv $dir\\ubt24\\ext4-bak.vhdx $dir\\ubt24\\ext4.vhdx"
+        ]
+    }
+}
+

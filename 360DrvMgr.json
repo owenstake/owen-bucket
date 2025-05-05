@@ -5,12 +5,7 @@
     "license": "Shareware",
     "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/360DrvMgr-2.0.0.2050.exe#/dl.7z",
     "hash": "7F9C691E76E677D86D759763D314F88F7342E8F8613C25935892F517A1BA47F1",
-    "installer": {
-        "script": [
-            "Move-Item \"$dir\\360DrvMgr\\*\" \"$dir\" -ErrorAction SilentlyContinue | Out-Null",
-            "Remove-Item -Recurse -Force \"$dir\\360DrvMgr\" -ErrorAction SilentlyContinue | Out-Null"
-        ]
-    },
+    "extract_dir": "360DrvMgr",
     "uninstaller": {
         "script": "cmd /c \"$dir\\清理残留.bat\""
     },
