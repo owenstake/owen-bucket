@@ -1,0 +1,21 @@
+{
+    "version": "1.0",
+    "description": "Firefox with owen config.",
+    "homepage": "https://github.com/owenstake/owen-bucket",
+    "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+    "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+    "depends": ["Firefox"],
+    "installer": {
+        "script": [
+            "$firefoxShortName = \"$env:AppData\\Microsoft\\Windows\\Start Menu\\Programs\\Scoop Apps\\firefox.lnk\" ",
+            "$shell = New-Object -COM WScript.Shell                                     ",
+            "$firefoxShortcut = $shell.CreateShortcut($firefoxShortName)                ",
+            "$firefoxShortcut.Arguments = \"-profile $(scoop prefix firefox)\\profile\" ",
+            "$firefoxShortcut.save()                                                    "
+        ]
+    },
+    "uninstaller": {
+        "script": [
+        ]
+    }
+}

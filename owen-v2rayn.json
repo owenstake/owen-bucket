@@ -1,0 +1,42 @@
+{
+    "version": "1.0",
+    "description": "v2rayN with owen config.",
+    "homepage": "https://github.com/owenstake/owen-bucket",
+    "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+    "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+    "depends": "v2rayN-SelfContained",
+    "installer": {
+        "script": [
+            "$prefix = $(scoop prefix v2rayN-SelfContained)                    ",
+            "$configFile = \"${prefix}\\guiConfigs\\guiNConfig.json\"          ",
+            "Info 'Parse config file $configFile'                              ",
+            "$js = $(Get-Content $configFile | ConvertFrom-Json)               ",
+
+            "Info 'Custom config item'                                         ",
+            "$js.UiItem.AutoHideStartup = $True                                ",
+            "$js.Inbound[0].AllowLANConn   = $True                             ",
+            "$js.Inbound[0].LocalPort      = 10809                             ",
+
+            "# Fix qq sso                                                      ",
+            "$addUrls = ('localhost.ptlogin2.qq.com','localhost.sec.qq.com')   ",
+            "$existUrls = $js.SystemProxyItem.SystemProxyExceptions -split ';' ",
+            "foreach ( $i in $addUrls ) {                                      ",
+            "    if (!($existUrls.contains($i))) {                             ",
+            "        $existUrls += $i                                          ",
+            "    }                                                             ",
+            "}                                                                 ",
+            "$js.SystemProxyItem.SystemProxyExceptions = $existUrls -join ';'  ",
+            "Info 'Save config to file guiNConfig.json'                        ",
+            "$js | convertTo-json -depth 8 > ${configFile}   # 8 to avoid json mal format ",
+
+            "Info 'Restart V2rayN to take effect for new config'               ",
+            "Stop-Process -name v2rayN -ErrorAction SilentlyContinue           ",
+            "Stop-Process -name xray   -ErrorAction SilentlyContinue           ",
+            "Explorer.exe ${prefix}\\v2rayn.exe                                "
+        ]
+    },
+    "uninstaller": {
+        "script": [
+        ]
+    }
+}

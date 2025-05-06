@@ -1,0 +1,47 @@
+{
+    "version": "1.9.5",
+    "description": "A minimal Markdown editor and reader",
+    "homepage": "https://typora.io",
+    "license": {
+        "identifier": "Proprietary",
+        "url": "https://support.typora.io/License-Agreement/"
+    },
+    "notes": "For old beta version, install: versions/typora0.11.18",
+    "architecture": {
+        "64bit": {
+            "url": [
+                "https://download.typora.io/windows/typora-setup-x64-1.9.5.exe",
+                "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/winmm.dll"
+            ],
+            "hash": [
+                "047DEAB87662BCB6222F7900164CDDB08E0247FEAC179039067DB9EEB9D79447",
+                "52B70942DA953439CD107C1DA16ACD0D8A06AAE192E03CEC9ACD6EF6E817B847"
+            ]
+        }
+    },
+    "innosetup": true,
+    "bin": "Typora.exe",
+    "shortcuts": [
+        [
+            "Typora.exe",
+            "Typora"
+        ]
+    ],
+    "checkver": {
+        "url": "https://typora.io/releases/stable",
+        "regex": "<h2>([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://download.typora.io/windows/typora-setup-x64-$version.exe"
+            },
+            "32bit": {
+                "url": "https://download.typora.io/windows/typora-setup-ia32-$version.exe"
+            },
+            "arm64": {
+                "url": "https://download.typora.io/windows/typora-setup-arm64-$version.exe"
+            }
+        }
+    }
+}
