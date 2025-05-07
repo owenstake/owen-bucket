@@ -7,8 +7,11 @@
     "depends": "v2rayN-SelfContained",
     "installer": {
         "script": [
+            "Stop-Process -name v2rayN -ErrorAction SilentlyContinue           ",
+            "Stop-Process -name xray   -ErrorAction SilentlyContinue           ",
             "$prefix = $(scoop prefix v2rayN-SelfContained)                    ",
             "$configFile = \"${prefix}\\guiConfigs\\guiNConfig.json\"          ",
+            "# Copy-Item $configFile \"${configFile}.bak\" ",
             "Info 'Parse config file $configFile'                              ",
             "$js = $(Get-Content $configFile | ConvertFrom-Json)               ",
 
@@ -18,25 +21,31 @@
             "$js.Inbound[0].LocalPort      = 10809                             ",
 
             "# Fix qq sso                                                      ",
-            "$addUrls = ('localhost.ptlogin2.qq.com','localhost.sec.qq.com')   ",
+            "$e = 'KgAuAGcAegBpAHQAdABjAC4AYwBvAG0A'                           ",
+            "$u = [System.Text.Encoding]::Unicode.GetString(                   ",
+            "    [System.Convert]::FromBase64String($e)                        ",
+            ")                                                                 ",
+            "$addUrls = ('localhost.*.qq.com',$u)                              ",
             "$existUrls = $js.SystemProxyItem.SystemProxyExceptions -split ';' ",
-            "foreach ( $i in $addUrls ) {                                      ",
+            "ForEach ( $i in $addUrls ) {                                      ",
             "    if (!($existUrls.contains($i))) {                             ",
             "        $existUrls += $i                                          ",
             "    }                                                             ",
             "}                                                                 ",
             "$js.SystemProxyItem.SystemProxyExceptions = $existUrls -join ';'  ",
             "Info 'Save config to file guiNConfig.json'                        ",
-            "$js | convertTo-json -depth 8 > ${configFile}   # 8 to avoid json mal format ",
+            "# Depth 8 to avoid json mal format                                ",
+            "$js | convertTo-json -depth 8 > ${configFile}                     ",
 
             "Info 'Restart V2rayN to take effect for new config'               ",
-            "Stop-Process -name v2rayN -ErrorAction SilentlyContinue           ",
-            "Stop-Process -name xray   -ErrorAction SilentlyContinue           ",
             "Explorer.exe ${prefix}\\v2rayn.exe                                "
         ]
     },
     "uninstaller": {
         "script": [
+            "# $prefix = $(scoop prefix v2rayN-SelfContained)                    ",
+            "# $configFile = \"${prefix}\\guiConfigs\\guiNConfig.json\"          ",
+            "# Copy-Item $configFile \"${configFile}.bak\" "
         ]
     }
 }
