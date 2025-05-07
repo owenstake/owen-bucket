@@ -1,6 +1,6 @@
 {
     "version": "24.04.2",
-    "description": "wsl ubuntu",
+    "description": "wsl ubuntu 24 LTS",
     "homepage": "https://ubuntu.com/desktop/wsl",
     "url": "https://releases.ubuntu.com/noble/ubuntu-24.04.2-wsl-amd64.wsl",
     "hash": "5D1EEA52103166F1C460DC012ED325C6EB31D2CE16EF6A00FFDFDA8E99E12F43",
@@ -16,6 +16,7 @@
     "uninstaller": {
         "script": [
             "wsl --shutdown ubt24",
+            "# Unregister would delete ext4.vhdx, we should back it up first.",
             "mv $dir\\ubt24\\ext4.vhdx $dir\\ubt24\\ext4-bak.vhdx",
             "wsl --unregister ubt24",
             "mv $dir\\ubt24\\ext4-bak.vhdx $dir\\ubt24\\ext4.vhdx"
