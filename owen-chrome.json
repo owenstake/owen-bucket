@@ -4,17 +4,17 @@
     "homepage": "https://github.com/owenstake/owen-bucket",
     "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
     "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
-    "depends": ["googlechrome","sudo"],
+    "depends": ["google-chrome"],
     "installer": {
         "script": [
-            "sudo reg add HKEY_CURRENT_USER\\SOFTWARE\\Policies\\Google\\Chrome `",
+            "reg add HKEY_CURRENT_USER\\SOFTWARE\\Policies\\Google\\Chrome `",
             "                /f /v UserDataDir                                  `",
             "                /d \"$(scoop prefix googlechrome)\\User Data\"      "
         ]
     },
     "uninstaller": {
         "script": [
-            "sudo reg delete HKEY_CURRENT_USER\\SOFTWARE\\Policies\\Google\\Chrome `",
+            "reg delete HKEY_CURRENT_USER\\SOFTWARE\\Policies\\Google\\Chrome `",
             "                /f /v UserDataDir                                      "
         ]
     },
