@@ -1,0 +1,72 @@
+{
+    "version": "1.0",
+    "description": "File associate with scoop apps",
+    "homepage": "https://github.com/owenstake/owen-bucket",
+    "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+    "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+    "depends": [
+        "google-chrome",
+        "autohotkey1.1",
+        "vscode",
+        "typora",
+        "foxit-pdf-reader-2023",
+        "draw.io",
+        "vlc"
+    ],
+    "installer": {
+        "script": [
+            "Function Create-ProgID($progid, $exe, $extension) {     ",
+            "    $prefix = \"HKEY_CURRENT_USER\\Software\\Classes\\$progid\" ",
+            "    [Microsoft.Win32.Registry]::SetValue(                       ",
+            "        \"$prefix\\shell\\open\\command\",                      ",
+            "        $null,                                                  ",
+            "        \"`\"$exe`\" `\"%1`\"\"                                 ",
+            "    )                                                           ",
+            "    [Microsoft.Win32.Registry]::SetValue(     ",
+            "        \"$prefix\\extensions\\$extension\",  ",
+            "        $null,                                ",
+            "        ''                                    ",
+            "    )                                         ",
+            "}                                             ",
+            "Function Add-ScoopExeToProgids($extensions, $scoopAppName, $exeName) {         ",
+            "    Foreach ($e in $($extensions -split ',')) {                                ",
+            "        $progId = \"scoop.${scoopAppName}\"                                    ",
+            "        Create-ProgID $progId \"$(scoop prefix $scoopAppName)\\$exeName\" $e   ",
+            "        # Associate extension with progId in droplist                          ",
+            "        [Microsoft.Win32.Registry]::SetValue(                                  ",
+            "            \"HKEY_CURRENT_USER\\Software\\Classes\\$e\\OpenWithProgids\",     ",
+            "            $progId,                                                           ",
+            "            ''                                                                 ",
+            "        )                                                                      ",
+            "    }                                                                          ",
+            "}                                                                              ",
+            "Add-ScoopExeToProgids '.ahk'              'autohotkey1.1'          'AutoHotkeyU64.exe'    ",
+            "Add-ScoopExeToProgids '.md'               'vscode'                 'code.exe'             ",
+            "Add-ScoopExeToProgids '.md'               'typora'                 'typora.exe'           ",
+            "Add-ScoopExeToProgids '.pdf'              'foxit-pdf-reader-2023'  'foxitPdfReader.exe'   ",
+            "Add-ScoopExeToProgids '.drawio,.png,.svg' 'draw.io'                'draw.io.exe'          ",
+            "Add-ScoopExeToProgids '.mp4,mkv'          'vlc'                    'vlc.exe'              ",
+            "$7zFileType = '.7z,.rar,.zip,.tgz,.gz,.xz'                                                ",
+            "Add-ScoopExeToProgids \"$7zFileType\"     '7zip'                   '7zFM.exe'             "
+        ]
+    },
+    "uninstaller": {
+        "script": [
+            "Function Remove-AllScoopFileAssociationg() {                                                 ",
+            "    $progIds = Get-ChildItem -Path 'HKCU:Software/Classes/scoop.*' |                         ",
+            "                    ForEach { ($_.Name -split '\\\\')[-1] }                                  ",
+            "    Foreach ($p in $progIds) {    # i.e. scoop.7zip                                          ",
+            "        $extensions = Get-ChildItem -Path \"HKCU:Software/Classes/$p/extensions\" |          ",
+            "                        ForEach { ($_.Name -split '\\\\')[-1] }                              ",
+            "        Foreach ($e in $extensions) {  # i.e. .zip                                           ",
+            "            Remove-ItemProperty -path \"HKCU:Software/Classes/$e/OpenWithProgids\" -Name $p  ",
+            "        }                                                                                    ",
+            "        Remove-Item -Path \"HKCU:Software/Classes/$p\" -Recurse                              ",
+            "    }                                                                                        ",
+            "}                                                                                            ",
+            "Remove-AllScoopFileAssociationg"
+        ]
+    },
+    "post_uninstall" :[
+    ]
+}
