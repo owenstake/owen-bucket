@@ -7,18 +7,19 @@
     "depends": ["google-chrome"],
     "installer": {
         "script": [
-            "reg add HKEY_CURRENT_USER\\SOFTWARE\\Policies\\Google\\Chrome `",
-            "                /f /v UserDataDir                                  `",
-            "                /d \"$(scoop prefix googlechrome)\\User Data\"      "
+            "Remove-Item -Force -Recurse -ErrorAction SilentlyContinue      `",
+            "          -Path \"$ENV:LOCALAPPDATA\\Google\\Chrome\\User Data\"",
+            "New-Item -ItemType Junction -target \"$(scoop prefix google-chrome)\\User Data\"        `",
+            "         -Path \"$ENV:LOCALAPPDATA\\Google\\Chrome\\User Data\" "
         ]
     },
     "uninstaller": {
         "script": [
-            "reg delete HKEY_CURRENT_USER\\SOFTWARE\\Policies\\Google\\Chrome `",
-            "                /f /v UserDataDir                                      "
+            "Remove-Item -Force -Recurse -ErrorAction SilentlyContinue      `",
+            "          -Path \"$ENV:LOCALAPPDATA\\Google\\Chrome\\User Data\""
         ]
     },
     "post_uninstall" :[
-        "Warn 'Do it manully => scoop uninstall googlechrome [-p]'"
+        "Warn 'Do it manully => scoop uninstall google-chrome [-p]'"
     ]
 }
