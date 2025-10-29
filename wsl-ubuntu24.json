@@ -1,22 +1,27 @@
 {
-    "version": "24.04.2",
+    "version": "24.04.3",
     "description": "wsl ubuntu 24 LTS",
     "homepage": "https://ubuntu.com/desktop/wsl",
-    "url": "https://releases.ubuntu.com/noble/ubuntu-24.04.2-wsl-amd64.wsl",
-    "hash": "5D1EEA52103166F1C460DC012ED325C6EB31D2CE16EF6A00FFDFDA8E99E12F43",
+    "url": "https://releases.ubuntu.com/noble/ubuntu-24.04.3-wsl-amd64.wsl",
+    "hash": "C74833A55E525B1E99E1541509C566BB3E32BDB53BF27EA3347174364A57F47C",
     "persist": "ubt24",
     "post_install": [
         "If (Test-Path $dir\\ubt24\\ext4.vhdx) {",
         "    Info 'Restore from persist data'",
         "    wsl --import-in-place ubt24 $dir\\ubt24\\ext4.vhdx",
         "} else {",
-        "    wsl --import ubt24 $dir\\ubt24 $dir\\ubuntu-24.04.2-wsl-amd64.wsl",
+        "    Info 'Install from wsl'",
+        "    wsl --import ubt24 $dir\\ubt24 $dir\\ubuntu-24.04.3-wsl-amd64.wsl",
+        "    Info 'bash> adduser z; usermod -aG sudo z  '",
+        "    Info 'PSH>  wsl --manage ubt24 --set-default-user z'",
         "}"
     ],
     "uninstaller": {
         "script": [
-            "wsl --shutdown ubt24",
-            "# Unregister would delete ext4.vhdx, we should back it up first.",
+            "Info 'Shutdowning ubt24 ...'",
+            "wsl --terminate ubt24",
+            "Sleep 5",
+            "Info 'Unregister would delete ext4.vhdx, we should back it up first.'",
             "mv $dir\\ubt24\\ext4.vhdx $dir\\ubt24\\ext4-bak.vhdx",
             "wsl --unregister ubt24",
             "mv $dir\\ubt24\\ext4-bak.vhdx $dir\\ubt24\\ext4.vhdx"

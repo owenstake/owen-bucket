@@ -4,15 +4,15 @@
     "homepage": "https://github.com/owenstake/owen-bucket",
     "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
     "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
-    "depends": ["google-chrome"],
-    "installer": {
-        "script": [
-            "Remove-Item -Force -Recurse -ErrorAction SilentlyContinue      `",
-            "          -Path \"$ENV:LOCALAPPDATA\\Google\\Chrome\\User Data\"",
-            "New-Item -ItemType Junction -target \"$(scoop prefix google-chrome)\\User Data\"        `",
-            "         -Path \"$ENV:LOCALAPPDATA\\Google\\Chrome\\User Data\" "
-        ]
-    },
+    "depends": ["googlechrome"],
+    "installer": { "script": [ ] },
+    "persist": "User Data",
+    "post_install" : [
+        "Remove-Item -Force -Recurse -ErrorAction SilentlyContinue      `",
+        "       -Path \"$ENV:LOCALAPPDATA\\Google\\Chrome\\User Data\"",
+        "New-Item -ItemType Junction -target \"$dir\\User Data\"        `",
+        "       -Path \"$ENV:LOCALAPPDATA\\Google\\Chrome\\User Data\" | Out-Null "
+    ],
     "uninstaller": {
         "script": [
             "Remove-Item -Force -Recurse -ErrorAction SilentlyContinue      `",
@@ -20,6 +20,6 @@
         ]
     },
     "post_uninstall" :[
-        "Warn 'Do it manully => scoop uninstall google-chrome [-p]'"
+        "Warn 'Do it manully => scoop uninstall googlechrome'"
     ]
 }
