@@ -8,6 +8,7 @@
     "installer": { "script": [ ] },
     "persist": "User Data",
     "post_install" : [
+        "# persist dir is created after installer",
         "Remove-Item -Force -Recurse -ErrorAction SilentlyContinue      `",
         "       -Path \"$ENV:LOCALAPPDATA\\Google\\Chrome\\User Data\"",
         "New-Item -ItemType Junction -target \"$dir\\User Data\"        `",
