@@ -8,7 +8,7 @@
     "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
     "installer": {
         "script": [
-            ". ../script/lib.ps1                        ",
+            ". \"$bucketsdir\\$bucket\\script\\lib.ps1\"",
             "''                                         ",
             "Associate-ScoopAppWithExtension   '.ahk'              'autohotkey1.1'        ",
             "# Associate-ScoopAppWithExtension '.md'               'vscode'               ",
@@ -26,25 +26,37 @@
             "Add-RightClickScoopItemForAll 'vscode'            ",
             "Add-RightClickScoopItemForAll 'vim-tux'           ",
             "Add-RightClickScoopItemForAll '7zip'              ",
+
             "# powershell.exe is better for debug than cmd.exe ",
+
             "$drawioExe = \"$(scoop prefix draw.io)/$(GetExeForScoop draw.io)\" ",
             "Add-RightClickItemWithCommand '.svg,.png'                 `",
             "                              'Edit-By-Drawio'            `",
             "                              \"$drawioExe\"              `",
             "                              \"$drawioExe\"   `\"%1`\" \"         ",
+
             "Add-RightClickItemWithCommand 'Directory\\Background'              ",
             "                              '粘贴快捷方式(环境变量)'             ",
             "                              ''                                   ",
             "                              \"powershell -c `\"Paste-FileAsShortcut `'%W`'`\"",
+
             "$7zIcon = \"$(scoop prefix 7zip)/7zG.exe\"                 ",
             "Add-RightClickItemWithCommand   'AllFileSystemObjects'      `",
             "                                'Zip'                       `",
             "                                \"$7zIcon\"                 `",
             "                                \"cmd /c singleinstance.exe `\"%1`\" powershell -c Compress-Interactive `$files --si-timeout 400\"",
+
             "Add-RightClickItemWithCommand   \"$7zFileType\"           `",
             "                                'Expand'                  `",
             "                                \"$7zIcon\"               `",
             "                                \"powershell -c `\"Expand-by-7zip `'%1`' `'%W`'`\" \"",
+
+            "$FoxitExe = \"$(scoop prefix foxit-pdf-reader-2023)/FoxitPDFReader.exe\" ",
+            "Add-RightClickItemWithCommand    '.pdf'                      `",
+            "                                 'Open-By-Foxit'             `",
+            "                                 \"$FoxitExe\"               `",
+            "                                 \"$FoxitExe `\"%1`\" \"      ",
+
             "'Add new file item'",
             "$drawioFile    = (Get-ChildItem $Env:OwenInstallDir -Recurse 'blank.drawio'    )[0].FullName",
             "$drawioPngFile = (Get-ChildItem $Env:OwenInstallDir -Recurse 'blank.drawio.png')[0].FullName",
@@ -57,7 +69,8 @@
     },
     "uninstaller": {
         "script": [
-            ". ../script/lib.ps1                                                            ",
+            "$bucket = (Get-Content \"$dir\\install.json\" | ConvertFrom-Json).bucket",
+            ". \"$bucketsdir\\$bucket\\script\\lib.ps1\"",
             "''                                                                             ",
             "'Remove all scoop app info and its extension association in windows registry.' ",
             "Remove-AllScoopAppInRegistry                                                   ",
