@@ -57,6 +57,12 @@
             "                                 \"$FoxitExe\"               `",
             "                                 \"$FoxitExe `\"%1`\" \"      ",
 
+            "$XmindExe = \"$(scoop prefix xmind)/xmind.exe\" ",
+            "Add-RightClickItemWithCommand    '.xmind'                      `",
+            "                                 'Open-By-Xmind'             `",
+            "                                 \"$XmindExe\"               `",
+            "                                 \"$XmindExe `\"%1`\" \"      ",
+
             "'Add new file item'",
             "$drawioFile    = (Get-ChildItem $Env:OwenInstallDir -Recurse 'blank.drawio'    )[0].FullName",
             "$drawioPngFile = (Get-ChildItem $Env:OwenInstallDir -Recurse 'blank.drawio.png')[0].FullName",
