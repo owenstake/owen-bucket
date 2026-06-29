@@ -1,0 +1,26 @@
+{
+    "version": "24.04.2",
+    "description": "wsl ubuntu 24 LTS",
+    "homepage": "https://ubuntu.com/desktop/wsl",
+    "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/ext4-ubt20-pure.zip",
+    "hash": "5D1EEA52103166F1C460DC012ED325C6EB31D2CE16EF6A00FFDFDA8E99E12F43",
+    "persist": "ubt20",
+    "post_install": [
+        "If (Test-Path $dir\\ubt24\\ext4.vhdx) {",
+        "    Info 'Restore from persist data'",
+        "    wsl --import-in-place ubt24 $dir\\ubt24\\ext4.vhdx",
+        "} else {",
+        "    wsl --import ubt24 $dir\\ubt24 $dir\\ubuntu-24.04.2-wsl-amd64.wsl",
+        "}"
+    ],
+    "uninstaller": {
+        "script": [
+            "wsl --shutdown ubt24",
+            "# Unregister would delete ext4.vhdx, we should back it up first.",
+            "mv $dir\\ubt24\\ext4.vhdx $dir\\ubt24\\ext4-bak.vhdx",
+            "wsl --unregister ubt24",
+            "mv $dir\\ubt24\\ext4-bak.vhdx $dir\\ubt24\\ext4.vhdx"
+        ]
+    }
+}
+
