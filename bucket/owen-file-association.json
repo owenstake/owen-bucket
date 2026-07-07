@@ -75,7 +75,7 @@
     },
     "uninstaller": {
         "script": [
-            "$bucket = $install.bucket",
+            "$bucket = (Get-Content \"$dir\\install.json\" | ConvertFrom-Json).bucket",
             ". \"$bucketsdir\\$bucket\\script\\lib.ps1\"",
             "''                                                                             ",
             "'Remove all scoop app info and its extension association in windows registry.' ",

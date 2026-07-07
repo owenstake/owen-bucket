@@ -7,23 +7,23 @@
     "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
     "installer": {
         "script": [
-            ". \"$bucketsdir\\${bucket}\\script\\lib.ps1\"",
-            "''                                         ",
-            "# required                                                           ",
-            "Move-Item $env:LOCALAPPDATA/nvim $env:LOCALAPPDATA/nvim.bak",
-            "# optional but recommended                                           ",
-            "# Move-Item $env:LOCALAPPDATA/nvim-data $env:LOCALAPPDATA/nvim-data.bak",
-      
-            "git clone https://github.com/LazyVim/starter $env:LOCALAPPDATA/nvim",
-			"if(Test-Path $env:LOCALAPPDATA/nvim/.git) {",
-            "  Remove-Item $env:LOCALAPPDATA/nvim/.git -Recurse -Force",
-			"}",
-            "nvim    # trigger installation"
+          ". \"$bucketsdir\\${bucket}\\script\\lib.ps1\"",
+          "''                                         ",
+          "# Required                                                           ",
+          "Move-Item $env:LOCALAPPDATA/nvim $env:LOCALAPPDATA/nvim.bak",
+          "# Optional but recommended                                           ",
+          "# Move-Item $env:LOCALAPPDATA/nvim-data $env:LOCALAPPDATA/nvim-data.bak",
+
+          "git clone https://github.com/LazyVim/starter $env:LOCALAPPDATA/nvim",
+          "if(Test-Path $env:LOCALAPPDATA/nvim/.git) {",
+                "  Remove-Item $env:LOCALAPPDATA/nvim/.git -Recurse -Force",
+          "}",
+          "nvim    # trigger installation"
         ]
     },
     "uninstaller": {
         "script": [
-            "$bucket = $install.bucket",
+            "$bucket = (Get-Content \"$dir\\install.json\" | ConvertFrom-Json).bucket",
             ". \"$bucketsdir\\${bucket}\\script\\lib.ps1\"",
             "''",
 			      "if(Test-Path $env:LOCALAPPDATA/nvim.bak) {",

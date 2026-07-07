@@ -8,6 +8,12 @@
         "script": [
             "[Microsoft.Win32.Registry]::SetValue(                                        ",
             "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
+            "    \"Default Mode\",                                                ",
+            "    1,                                                                       ",
+            "    [microsoft.win32.RegistryValueKind]::DWord                               ",
+            ")                                                                            ",
+            "[Microsoft.Win32.Registry]::SetValue(                                        ",
+            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
             "    \"Enable Double Pinyin\",                                                ",
             "    1,                                                                       ",
             "    [microsoft.win32.RegistryValueKind]::DWord                               ",

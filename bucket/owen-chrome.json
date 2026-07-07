@@ -16,6 +16,7 @@
     ],
     "uninstaller": {
         "script": [
+            "'Reomve Junction'",
             "Remove-Item -Force -Recurse -ErrorAction SilentlyContinue      `",
             "          -Path \"$ENV:LOCALAPPDATA\\Google\\Chrome\\User Data\""
         ]

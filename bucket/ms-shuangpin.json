@@ -8,6 +8,12 @@
         "script": [
             "[Microsoft.Win32.Registry]::SetValue(                                        ",
             "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
+            "    \"Default Mode\",                                                ",
+            "    1,                                                                       ",
+            "    [microsoft.win32.RegistryValueKind]::DWord                               ",
+            ")                                                                            ",
+            "[Microsoft.Win32.Registry]::SetValue(                                        ",
+            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
             "    \"Enable Double Pinyin\",                                                ",
             "    1,                                                                       ",
             "    [microsoft.win32.RegistryValueKind]::DWord                               ",
@@ -22,7 +28,7 @@
     },
     "uninstaller": {
         "script": [
-            "$bucket = $install.bucket",
+            "$bucket = (Get-Content \"$dir\\install.json\" | ConvertFrom-Json).bucket",
             ". \"$bucketsdir\\${bucket}\\script\\lib.ps1\"",
             "",
             "[Microsoft.Win32.Registry]::SetValue(                                        ",
