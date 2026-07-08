@@ -1,6 +1,6 @@
 {
-    "version": "3.0.0.688",
-    "description": "微云是腾讯公司为用户精心打造的一项智能云服务, 您可以通过微云方便地在手机和电脑之间同步文件、推送照片和传输数据。",
+    "version": "3.0.0.707",
+    "description": "微云同步助手",
     "homepage": "https://www.weiyun.com/",
     "license": {
         "identifier": "Proprietary",
@@ -15,8 +15,8 @@
     "extract_dir": "weiyunsync",
     "architecture": {
         "64bit": {
-            "hash": "E09203B5CC4D2BCB7C055B0D90D680B07B6784356A82FBEAD77BD42E6CCE6312",
-            "url": "https://dldir1.qq.com/weiyun/WeiyunSyncInstall_Beta_1_3.0.0.688_20251229_174406_r0.exe#/dl.7z"
+            "hash": "5B68807843E1F4A82A66E92AE931AB986CE4F4A664099CE3F27E93DF0403F1F9",
+            "url": "https://dldir1.qq.com/weiyun/WeiyunSyncInstall_Beta_1_3.0.0.707_20260421_161008_r0.exe#/dl.7z"
         }
     },
     "post_install": [
