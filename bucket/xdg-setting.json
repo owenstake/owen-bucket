@@ -9,25 +9,22 @@
     "xdg-config-home", 
     "xdg-data-home", 
     "xdg-state-home", 
-    "xdg-cache-home",
-    "xdg-runtime-home"
+    "xdg-cache-home"
   ],
   "post_install": [
       "'Setting XDG Environment Var...'",
-      "[System.Environment]::SetEnvironmentVariable('XDG_CONFIG_HOME', \"$persist_dir\\xdg-config-home\", 'User')",
-      "[System.Environment]::SetEnvironmentVariable('XDG_DATA_HOME',   \"$persist_dir\\xdg-data-home\", 'User')",
-      "[System.Environment]::SetEnvironmentVariable('XDG_STATE_HOME',  \"$persist_dir\\xdg-state-home\", 'User')",
-      "[System.Environment]::SetEnvironmentVariable('XDG_CACHE_HOME',  \"$persist_dir\\xdg-cache-home\", 'User')",
-      "[System.Environment]::SetEnvironmentVariable('XDG_RUNTIME_DIR', \"$persist_dir\\xdg-runtime-home\", 'User')"
-],
+      "[System.Environment]::SetEnvironmentVariable('XDG_CONFIG_HOME', \"$persist_dir\\xdg-config-home\" , 'User')",
+      "[System.Environment]::SetEnvironmentVariable('XDG_DATA_HOME',   \"$persist_dir\\xdg-data-home\"   , 'User')",
+      "[System.Environment]::SetEnvironmentVariable('XDG_STATE_HOME',  \"$persist_dir\\xdg-state-home\"  , 'User')",
+      "[System.Environment]::SetEnvironmentVariable('XDG_CACHE_HOME',  \"$persist_dir\\xdg-cache-home\"  , 'User')"
+  ],
   "uninstaller": {
     "script": [
       "'Unsetting XDG Environment Var...'",
       "[System.Environment]::SetEnvironmentVariable('XDG_CONFIG_HOME', $null, 'User')",
       "[System.Environment]::SetEnvironmentVariable('XDG_DATA_HOME',   $null, 'User')",
       "[System.Environment]::SetEnvironmentVariable('XDG_STATE_HOME',  $null, 'User')",
-      "[System.Environment]::SetEnvironmentVariable('XDG_CACHE_HOME',  $null, 'User')",
-      "[System.Environment]::SetEnvironmentVariable('XDG_RUNTIME_DIR', $null, 'User')"
+      "[System.Environment]::SetEnvironmentVariable('XDG_CACHE_HOME',  $null, 'User')"
     ]
-  },
+  }
 }

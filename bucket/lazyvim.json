@@ -1,31 +1,33 @@
 {
-  "version": "15.15.0",
-  "description": "Neovim config for the lazy",
-  "homepage": "https://github.com/LazyVim/LazyVim",
-  "license": "Apache-2.0",
-  "url": "https://github.com/LazyVim/LazyVim/archive/refs/tags/v15.15.0.zip",
-  "hash": "sha256:D9573108E90D323F95EBC899EDC7F5529DBD537ADA659F5EAFF17BE8E3F2AA04",
-  "extract_dir": "LazyVim-15.15.0",
-  "depends": [
-    "main/neovim",
-    "main/git"
-  ],
-  "suggest": {
-    "fzf": "main/fzf",
-    "ripgrep": "main/ripgrep",
-    "fd": "main/fd"
-  },
-  "installer": {
-    "script": [
-    ]
-  },
-  "uninstaller": {
-    "script": [
-    ]
-  },
-  "checkver": "github",
-  "autoupdate": {
-    "url": "https://github.com/LazyVim/LazyVim/archive/refs/tags/v$version.zip",
-    "extract_dir": "LazyVim-$clean_version"
-  }
+    "version": "16.0.0",
+    "description": "Neovim config for the lazy",
+    "homepage": "https://github.com/LazyVim/LazyVim",
+    "license": "Apache-2.0",
+    "url": "https://github.com/LazyVim/LazyVim/archive/refs/tags/v16.0.0.zip",
+    "hash": "68e5f76c79dcc005116ad727406931dde4d35094c2440dbbd1b248da3c181b0e",
+    "extract_dir": "LazyVim-$clean_version",
+    "depends": [
+        "main/neovim",
+        "main/git"
+    ],
+    "suggest": {
+        "fzf": "main/fzf",
+        "ripgrep": "main/ripgrep",
+        "fd": "main/fd"
+    },
+    "installer": {
+        "script": [
+            
+        ]
+    },
+    "uninstaller": {
+        "script": [
+            
+        ]
+    },
+    "checkver": "github",
+    "autoupdate": {
+        "url": "https://github.com/LazyVim/LazyVim/archive/refs/tags/v$version.zip",
+        "extract_dir": "LazyVim-$clean_version"
+    }
 }
