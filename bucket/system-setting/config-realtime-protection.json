@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "description": "Realtime protection except powershell script like powershell profile",
+  "homepage": "https://github.com/owenstake/owen-bucket",
+  "depends": ["gsudo"],
+  "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+  "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+  "installer": {
+    "script": [
+      "''                                                   ",
+      "'============================================'       ",
+      "'==== Administator Setting =================='       ",
+      "'============================================'       ",
+      "gsudo {                                              ",
+      "  'Realtime Protection except powershell.exe    '    ",
+      "  Add-MpPreference -ExclusionProcess 'powershell.exe'",
+      "  Add-MpPreference -ExclusionProcess 'pwsh.exe'      ",
+      "}                                                    ",
+      "                                                     "
+    ]
+  },
+  "uninstaller": {
+    "script": [
+      "''                                                                                    ",
+      "gsudo {                                                                               ",
+      "  'Unset config for Realtime Protection '                                             ",
+      "  Remove-MpPreference -ExclusionProcess 'powershell.exe' -ErrorAction SilentlyContinue",
+      "  Remove-MpPreference -ExclusionProcess 'pwsh.exe' -ErrorAction SilentlyContinue      ",
+      "}                                                                                     ",
+      "                                                                                      "
+    ]
+  }
+}

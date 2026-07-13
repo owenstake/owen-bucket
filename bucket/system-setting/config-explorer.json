@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "description": "Config Explorer View",
+  "homepage": "https://github.com/owenstake/owen-bucket",
+  "depends": [],
+  "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+  "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+  "installer": {
+    "script": [
+      "Write-Host '===== Applying Explorer View Settings =====' -ForegroundColor Green   ",
+      "                                                                                  ",
+      "$advPath = 'HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Explorer/Advanced'    ",
+      "$cabPath = 'HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Explorer/CabinetState'",
+      "                                                                                  ",
+      "# 确保注册表路径文件夹存在                                                        ",
+      "if (!(Test-Path $advPath)) { New-Item $advPath -Force | Out-Null }                ",
+      "if (!(Test-Path $cabPath)) { New-Item $cabPath -Force | Out-Null }                ",
+      "                                                                                  ",
+      "# 1. 显示文件扩展名                                                               ",
+      "Set-ItemProperty -Path $advPath -Name 'HideFileExt' -Value 0 -Type DWord -Force   ",
+      "                                                                                  ",
+      "# 2. 打开资源管理器时默认打开 '此电脑' (This PC)                                  ",
+      "Set-ItemProperty -Path $advPath -Name 'LaunchTo' -Value 1 -Type DWord -Force      ",
+      "                                                                                  ",
+      "# 3. 在资源管理器顶部显示完整路径                                                 ",
+      "Set-ItemProperty -Path $cabPath -Name 'FullPath' -Value 1 -Type DWord -Force      "
+    ]
+  },
+  "uninstaller": {
+    "script": [
+      "Write-Host '===== Reverting Explorer View Settings =====' -ForegroundColor Yellow                            ",
+      "                                                                                                             ",
+      "$advPath = 'HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Explorer/Advanced'                               ",
+      "$cabPath = 'HKCU:/SOFTWARE/Microsoft/Windows/CurrentVersion/Explorer/CabinetState'                           ",
+      "                                                                                                             ",
+      "# 1. 还原为隐藏文件扩展名（系统默认值）                                                                      ",
+      "Set-ItemProperty -Path $advPath -Name 'HideFileExt' -Value 1 -Type DWord -Force -ErrorAction SilentlyContinue",
+      "                                                                                                             ",
+      "# 2. 还原为默认打开 '快速访问' (Quick Access)                                                                ",
+      "Set-ItemProperty -Path $advPath -Name 'LaunchTo' -Value 0 -Type DWord -Force -ErrorAction SilentlyContinue   ",
+      "                                                                                                             ",
+      "# 3. 还原为隐藏顶部完整路径                                                                                  ",
+      "Set-ItemProperty -Path $cabPath -Name 'FullPath' -Value 0 -Type DWord -Force -ErrorAction SilentlyContinue   "
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "version": "1.0",
+  "description": "Config panel view with only Desktop and Downloads",
+  "homepage": "https://github.com/owenstake/owen-bucket",
+  "depends": [],
+  "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+  "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+  "common_script" : [
+    "Function Set-ItemViewStatusInNavigationPanel($itemname, $status) {                               ",
+    "  $map = @{                                                                                      ",
+    "    '3d objects' = '{0DB7E03F-FC29-4DC6-9020-FF41B59E513A}'                                      ",
+    "    'videos'     = '{f86fa3ab-70d2-4fc7-9c99-fcbf05467f3a}'                                      ",
+    "    'pictures'   = '{24ad3ad4-a569-4530-98e1-ab02f9417aa8}'                                      ",
+    "    'documents'  = '{d3162b92-9365-467a-956b-92703aca08af}'                                      ",
+    "    'downloads'  = '{088e3905-0323-4b02-9826-5d99428e115f}'                                      ",
+    "    'musics'     = '{3dfdf296-dbec-4fb4-81d1-6a3438bcf4de}'                                      ",
+    "    'desktop'    = '{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}'                                      ",
+    "    'onedrive'   = '{018D5C66-4533-4307-9B53-224DE2ED1FE6}'                                      ",
+    "  }                                                                                              ",
+    "  $key = $itemname.ToLower()                                                                     ",
+    "  If (!($map.ContainsKey($key))) {                                                               ",
+    "    throw $itemname + ' does not exist.'                                                         ",
+    "  }                                                                                              ",
+    "  $guid = $map[$key]                                                                             ",
+    "  $path = 'HKCU:/Software/Classes/CLSID/' + $guid                                                ",
+    "  If (!(Test-Path $path)) { New-Item $path -Force | Out-Null }                                   ",
+    "  Set-ItemProperty -Path $path -Name 'System.IsPinnedToNameSpaceTree' -Value $status -Type DWord ",
+    "}                                                                                                ",
+  ],
+  "installer": {
+    "script": [
+      "''                                                                                               ",
+      "Invoke-Expression ($manifest.common_script -join [Environment]::NewLine)                         ",
+
+      "'== Set item view in navigation panel =='          ",
+      "Set-ItemViewStatusInNavigationPanel 'Downloads'  1 ",
+      "Set-ItemViewStatusInNavigationPanel 'Desktop'    1 ",
+      "Set-ItemViewStatusInNavigationPanel 'Videos'     0 ",
+      "Set-ItemViewStatusInNavigationPanel 'Musics'     0 ",
+      "Set-ItemViewStatusInNavigationPanel 'Pictures'   0 ",
+      "Set-ItemViewStatusInNavigationPanel '3D Objects' 0 ",
+      "Set-ItemViewStatusInNavigationPanel 'Documents'  0 ",
+      "Set-ItemViewStatusInNavigationPanel 'OneDrive'   0 ",
+      ""
+    ]
+  },
+  "uninstaller": {
+    "script": [
+      "''                                                                                               ",
+      "Invoke-Expression ($manifest.common_script -join [Environment]::NewLine)                         ",
+
+      "'== Restore Set item view in navigation panel =='                                                ",
+      "Set-ItemViewStatusInNavigationPanel 'Downloads'  1                                               ",
+      "Set-ItemViewStatusInNavigationPanel 'Desktop'    1                                               ",
+      "Set-ItemViewStatusInNavigationPanel 'Videos'     1                                               ",
+      "Set-ItemViewStatusInNavigationPanel 'Musics'     1                                               ",
+      "Set-ItemViewStatusInNavigationPanel 'Pictures'   1                                               ",
+      "Set-ItemViewStatusInNavigationPanel '3D Objects' 1                                               ",
+      "Set-ItemViewStatusInNavigationPanel 'Documents'  1                                               ",
+      "Set-ItemViewStatusInNavigationPanel 'OneDrive'   1                                               ",
+      "                                                                                                 "
+    ]
+  }
+}

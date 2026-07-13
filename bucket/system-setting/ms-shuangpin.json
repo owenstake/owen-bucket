@@ -1,42 +1,23 @@
 {
-    "version": "1.0",
-    "description": "Set microsoft shuangpin for microsoft pinyin",
-    "homepage": "https://github.com/owenstake/owen-bucket",
-    "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
-    "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
-    "installer": {
-        "script": [
-            "[Microsoft.Win32.Registry]::SetValue(                                        ",
-            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
-            "    \"Default Mode\",                                                ",
-            "    1,                                                                       ",
-            "    [microsoft.win32.RegistryValueKind]::DWord                               ",
-            ")                                                                            ",
-            "[Microsoft.Win32.Registry]::SetValue(                                        ",
-            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
-            "    \"Enable Double Pinyin\",                                                ",
-            "    1,                                                                       ",
-            "    [microsoft.win32.RegistryValueKind]::DWord                               ",
-            ")                                                                            ",
-            "[Microsoft.Win32.Registry]::SetValue(                                        ",
-            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
-            "    \"DoublePinyinScheme\",                                                  ",
-            "    0,                                                                       ",
-            "    [microsoft.win32.RegistryValueKind]::DWord                               ",
-            ")                                                                            "
-        ]
-    },
-    "uninstaller": {
-        "script": [
-            "$bucket = (Get-Content \"$dir\\install.json\" | ConvertFrom-Json).bucket",
-            ". \"$bucketsdir\\${bucket}\\script\\lib.ps1\"",
-            "",
-            "[Microsoft.Win32.Registry]::SetValue(                                        ",
-            "    \"HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\InputMethod\\Settings\\CHS\",  ",
-            "    \"Enable Double Pinyin\",                                                ",
-            "    0,                                                                       ",
-            "    [microsoft.win32.RegistryValueKind]::DWord                               ",
-            ")                                                                            "
-        ]
-    }
+  "version": "1.0",
+  "description": "Set microsoft shuangpin for microsoft pinyin",
+  "homepage": "https://github.com",
+  "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+  "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+  "installer": {
+    "script": [
+      "$path = 'HKCU:/SOFTWARE/Microsoft/InputMethod/Settings/CHS'",
+      "if (!(Test-Path $path)) { New-Item $path -Force | Out-Null }",
+      "Set-ItemProperty -Path $path -Name 'Default Mode' -Value 1 -Type DWord",
+      "Set-ItemProperty -Path $path -Name 'Enable Double Pinyin' -Value 1 -Type DWord",
+      "Set-ItemProperty -Path $path -Name 'DoublePinyinScheme' -Value 0 -Type DWord"
+    ]
+  },
+  "uninstaller": {
+    "script": [
+      "$path = 'HKCU:/SOFTWARE/Microsoft/InputMethod/Settings/CHS'",
+      "if (!(Test-Path $path)) { New-Item $path -Force | Out-Null }",
+      "Set-ItemProperty -Path $path -Name 'Enable Double Pinyin' -Value 0 -Type DWord"
+    ]
+  }
 }
