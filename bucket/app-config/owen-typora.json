@@ -1,0 +1,21 @@
+{
+    "version": "1.0",
+    "description": "Owen config for typora.",
+    "homepage": "https://github.com/owenstake/owen-bucket",
+    "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/winmm.dll",
+    "hash" : "52B70942DA953439CD107C1DA16ACD0D8A06AAE192E03CEC9ACD6EF6E817B847",
+    "depends": ["typora-1.9.5"],
+    "installer": {
+        "script": [
+            "cp $dir\\winmm.dll $(scoop prefix typora-1.9.5)"
+        ]
+    },
+    "uninstaller": {
+        "script": [
+            "Remove-Item \"$(scoop prefix typora-1.9.5)\\winmm.dll\" -ErrorAction SilentlyContinue"
+        ]
+    },
+    "post_uninstall" :[
+        "Warn 'Do it manully => scoop uninstall typora-1.9.5 [-p]'"
+    ]
+}
