@@ -4,7 +4,6 @@
   "homepage": "https://github.com/owenstake/owen-bucket",
   "depends": [
     "draw.io",
-    "vim-tux",
     "typora-1.9.5",
     "7zip",
     "autohotkey1.1",
@@ -14,9 +13,8 @@
   "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
   "installer": {
     "script": [
-      "",
-      "# . $bucketsdir/$bucket/script/lib-file-association.ps1                   ",
-      "Invoke-Expression ($manifest.common_script -join [Environment]::NewLine)  ",
+      "''                                                                          ",
+      "Invoke-Expression ($manifest.common_script -join [Environment]::NewLine)    ",
       "Associate-ScoopAppWithExtension '.ahk' 'autohotkey1.1'                      ",
       "Associate-ScoopAppWithExtension '.md' 'typora-1.9.5'                        ",
       "Associate-ScoopAppWithExtension '.pdf' 'foxit-pdf-reader-2023'              ",
@@ -28,10 +26,8 @@
   },
   "uninstaller": {
     "script": [
-      '$bucket = (Get-Content $dir/install.json | ConvertFrom-Json).bucket      ',
-      '# . $bucketsdir/$bucket/script/lib-file-association.ps1                  ',
-      'Invoke-Expression ($manifest.common_script -join [Environment]::NewLine) ',
-      'Remove-FileAssociation                                                   '
+      "Invoke-Expression ($manifest.common_script -join [Environment]::NewLine) ",
+      "Remove-FileAssociation                                                   "
     ]
   },
   "common_script" : [
@@ -56,7 +52,7 @@
     '  if (!(Test-Path $cmdPath)) { New-Item $cmdPath -Force | Out-Null }                                ',
     '  $cleanExe = $exe.Trim("`"")                                                                       ',
     '  Set-ItemProperty -Path $cmdPath -Name "(Default)" -Value ("`"$cleanExe`" `"%1`"")                 ',
-    '  $extPath = "$prefix/extensions/$extension"                                                        ',
+    '  $extPath = "$prefix/extensions-associated/$extension"                                                        ',
     '  if (!(Test-Path $extPath)) { New-Item $extPath -Force | Out-Null }                                ',
     '  Set-ItemProperty -Path $extPath -Name "(Default)" -Value "" -Type String                          ',
     '}                                                                                                   ',
@@ -80,14 +76,14 @@
     '      ForEach-Object { $_.PSChildName }                                                             ',
     '                                                                                                    ',
     '    Foreach ($r in $regNames) {                                                                     ',
-    '      $extPath = "HKCU:/Software/Classes/$r/extensions"                                             ',
+    '      $extPath = "HKCU:/Software/Classes/$r/extensions-associated"                                             ',
     '      if (Test-Path $extPath) {                                                                     ',
     '        $extensions = Get-ChildItem -Path $extPath | ForEach-Object { $_.PSChildName }              ',
     '        Foreach ($e in $extensions) {                                                               ',
     '          $progIdPath = "HKCU:/Software/Classes/$e/OpenWithProgids"                                 ',
-    '            if (Test-Path $progIdPath) {                                                            ',
-    '              Remove-ItemProperty -Path $progIdPath -Name $r -ErrorAction SilentlyContinue          ',
-    '            }                                                                                       ',
+    '          if (Test-Path $progIdPath) {                                                              ',
+    '            Remove-ItemProperty -Path $progIdPath -Name $r -ErrorAction SilentlyContinue            ',
+    '          }                                                                                         ',
     '        }                                                                                           ',
     '      }                                                                                             ',
     '      Remove-Item -Path ("HKCU:/Software/Classes/$r") -Recurse -Force -ErrorAction SilentlyContinue ',
