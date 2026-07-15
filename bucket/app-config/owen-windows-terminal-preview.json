@@ -77,6 +77,7 @@
         "                                                                                                                               ",
         "# 🌟【Core Step】Explicitly modify defaultProfile to the GUID of pwsh 7                                                        ",
         "$jsonContent.defaultProfile = '{54434b12-7173-4ff1-8d1f-7b3bafc78b44}'                                                         ",
+        "$jsonContent.copyOnSelect = $true                                                                                              ",
         "Write-Host 'Successfully set pwsh 7 as the default startup terminal!' -ForegroundColor Green                                   ",            
         "                                                                                                                               ",
         "# 6. Convert the merged object back to a standard JSON string                                                                  ",

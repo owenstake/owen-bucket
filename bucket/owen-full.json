@@ -49,12 +49,11 @@
     // UI app
     "BaiduNetdisk", "Firefox", "Foxit-pdf-reader-2023", "Foxmail", "googlechrome",
     "HeidiSQL", "i4", "Mobaxterm", "Motrix", "typora-1.9.5", "Q-dir", "Wechat",
-    "Wxwork", "obsidian", "Thunder", "ThunderVideo", "Tor-browser",
+    "wxwork", "obsidian", "Thunder", "ThunderVideo", "Tor-browser",
     "vagrant", "vlc", "qq", "xmind", "zotero", "quarkpan",
 
     // owen custom ui app
     "owen-bucket/kuwo", "owen-bucket/360DrvMgr", "weiyunsync",
-
 
     "owen-system-setting",
     // owen system setting
@@ -72,7 +71,14 @@
       // "$script:bucketsStr = 'main extras versions nerd-fonts'",
   "installer": {
     "script": [
-      "$targetApps = @($manifest.depends | ForEach-Object { $_.Split('/')[-1].Trim() })                    ",
+      "# $hm = @{}                                                                                         ",
+      "# ForEach($a in $manifest.depends) {                                                                ",
+      "#   if ($a.contains('/')) {                                                                         ",
+      "#     $c = $a.Split('/')[-1].Trim()                                                                 ",
+      "#     $hm[$c] = $a                                                                                  ",
+      "#   }                                                                                               ",
+      "# }                                                                                                 ",
+      "$targetApps = @($manifest.depends | ForEach-Object {$_.Split('/')[-1].Trim()})                      ",
       "$installed = (scoop list).name                                                                      ",
       "echo '======================'                                                                       ",
       "$toInstall = @($targetApps | Where-Object { $_ -notin $installed })                                 ",
