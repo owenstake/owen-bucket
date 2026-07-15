@@ -1,0 +1,47 @@
+{
+  "version": "1.0",
+  "description": "Reinstall apps in new system.",
+  "note" : [
+    "Run < scoop reinstall need-reinstall > to reinstall the apps.                                          ",
+    "Reinstall apps in new system to take effect. This apps invade the host system which modify the C disk, ",
+    "and need reinstallation to rebuild the registry, hooks, config file or shortcuts                       ",
+    "on host system . Registry is a kind of file on c disk.                                                 ",
+  ],
+  "homepage": "https://github.com/owenstake/owen-bucket",
+  "depends": [
+    // modify file on system C:
+    "owen-chrome",        // modify user-data in $env:localappdata
+    "owen-firefox",       // modify shortcut  in c: start menu
+    "config-startup",     // add hook to c: startup
+
+    // modify registry
+    "ms-shuangpin",
+    "config-startup",
+    "config-explorer",
+    "config-panel-view",
+    "config-file-association",
+    "config-right-click-menu",
+    "config-right-click-menu-expansion",
+    "config-realtime-protection",
+
+    // modify env which is located on registry.
+    "xdg",
+  ],
+  "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+  "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+  "installer": {
+    "script": [
+      "''                                                                         ",
+      "Write-Host 'Install all depends:' $manifest.depends -ForegroundColor 'Cyan'",
+      "                                                                           "
+    ]
+  },
+  "post_install" : "",
+  "uninstaller": {
+    "script": [
+      "''                                                                           ",
+      "Write-Host 'Uninstall all depends:' $manifest.depends -ForegroundColor 'Cyan'",
+      "scoop uninstall $manifest.depends                                            ",
+    ]
+  }
+}
