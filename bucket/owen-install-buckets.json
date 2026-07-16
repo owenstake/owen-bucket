@@ -1,0 +1,58 @@
+{
+  "version": "1.0",
+  "description": "Owen setup scoop buckets for all.",
+  "homepage": "https://github.com/owenstake/owen-bucket",
+  "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+  "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+  "depends": ["git"],
+  "buckets": { 
+    "main":        ""                                         ,
+    "extras":      ""                                         ,
+    "versions":    ""                                         ,
+    "nerd-fonts":  ""                                         ,
+    "DEV-tools":   "https://github.com/anderlli0053/DEV-tools",
+    "owen-bucket": "https://github.com/owenstake/owen-bucket" ,
+  },
+  "installer": {
+    "script": [
+      "''                                                                                                     ",
+      "$buckets = $manifest.buckets                                                                           ",
+      "                                                                                                       ",
+      "$installed = $(scoop bucket list).name                                                                 ",
+      "$targetBuckets = $buckets.PSObject.Properties.Name                                                     ",
+      "$toInstall = @($targetBuckets | Where-Object { $_ -notin $installed })                                 ",
+      "if ($toInstall) {                                                                                      ",
+      "  Write-Host '检测到以下Bucket尚未安装，开始查漏补缺：' -ForegroundColor Cyan                          ",
+      "  Write-Host ($toInstall -join ' ') -ForegroundColor Yellow                                            ",
+      "  ForEach ($b in $toInstall) {                                                                         ",
+      "    scoop bucket add $b $buckets.$b                                                                    ",
+      "  }                                                                                                       ",
+      "} else {                                                                                                  ",
+      "  Write-Host '完美！全家桶清单中的所有Bucket均已妥善安装。' -ForegroundColor Green                        ",
+      "}                                                                                                         ",
+      "                                                                                                          ",
+      "# 5. 输出差异结果                                                                                         ",
+      "Write-Host '========================================' -ForegroundColor Cyan                               ",
+      "$extraBuckets = @($installed | Where-Object { $_ -notin $targetBuckets })                                 ",
+      "if ($extraBuckets) {                                                                                      ",
+      "    Write-Host '检测到本地已安装、但【未记入】当前全家桶清单的Bucket：' -ForegroundColor Yellow           ",
+      "    Write-Host ($extraBuckets -join ' ') -ForegroundColor Magenta                                         ",
+      "    Write-Host '提示：你可以将以上Bucket名称追加到清单的 depends 数组中。' -ForegroundColor Gray          ",
+      "} else {                                                                                                  ",
+      "    Write-Host '完美！本地已安装的所有Bucket均已 100% 被你的清单依赖追踪锁定。' -ForegroundColor Green    ",
+      "}                                                                                                         ",
+      "Write-Host '========================================' -ForegroundColor Cyan                               "
+    ]
+  },
+  "uninstaller": {
+    "script": [
+    ]
+  },
+  "post_uninstall" :[
+    "Warn ''"
+  ]
+}
+
+
+
+
