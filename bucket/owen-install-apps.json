@@ -77,31 +77,29 @@
       // "$script:bucketsStr = 'main extras versions nerd-fonts'",
   "installer": {
     "script": [
-      "''                                                                                                    ",
-      "$installed = (scoop list).name                                                                        ",
-      "$targetApps = $manifest.depends + $manifest.apps_matrix                                               ",
-      "$toInstall = @($targetApps | Where-Object { $_.Split('/')[-1].Trim() -notin $installed })             ",
-      "                                                                                                      ",
-      "$trimTargetApps = @($targetApps | ForEach-Object {$_.Split('/')[-1].Trim()})                          ",
-      "$extraApps = @($installed | Where-Object { $_ -notin $trimTargetApps })                               ",
-      "                                                                                                      ",
-      "if ($toInstall) {                                                                                     ",
-      "  Write-Host '检测到以下依赖尚未安装，开始查漏补缺：' -ForegroundColor Cyan                           ",
-      "  Write-Host ($toInstall -join ' ') -ForegroundColor Yellow                                           ",
-      "  scoop install $toInstall                                                                            ",
-      "} else {                                                                                              ",
-      "  Write-Host '完美！全家桶清单中的所有应用均已妥善安装。' -ForegroundColor Green                      ",
-      "}                                                                                                     ",
-      "# 5. 输出差异结果                                                                                     ",
-      "Write-Host '========================================' -ForegroundColor Cyan                           ",
-      "if ($extraApps) {                                                                                     ",
-      "    Write-Host '检测到本地已安装、但【未记入】当前全家桶清单的软件：' -ForegroundColor Yellow         ",
-      "    Write-Host ($extraApps -join ' ') -ForegroundColor Magenta                                        ",
-      "    Write-Host '提示：你可以将以上软件名称追加到清单的 apps_matrix 数组中。' -ForegroundColor Gray    ",
-      "} else {                                                                                              ",
-      "    Write-Host '完美！本地已安装的所有软件均已 100% 被你的清单依赖追踪锁定。' -ForegroundColor Green  ",
-      "}                                                                                                     ",
-      "Write-Host '========================================' -ForegroundColor Cyan                           "
+      "''                                                                                        ",
+      "$installed = (scoop list).name + $manifest.name                                           ",
+      "$targetApps = $manifest.depends + $manifest.apps_matrix                                   ",
+      "$toInstall = @($targetApps | Where-Object { $_.Split('/')[-1].Trim() -notin $installed }) ",
+      "                                                                                          ",
+      "$trimTargetApps = @($targetApps | ForEach-Object {$_.Split('/')[-1].Trim()})              ",
+      "$extraApps = @($installed | Where-Object { $_ -notin $trimTargetApps })                   ",
+      "                                                                                          ",
+      "if ($toInstall) {                                                                         ",
+      "  Write-Host '检测到以下依赖尚未安装，开始查漏补缺：' -ForegroundColor Cyan               ",
+      "  WARN ($toInstall -join ' ') -ForegroundColor Yellow                                     ",
+      "  scoop install $toInstall                                                                ",
+      "} else {                                                                                  ",
+      "  Write-Host '完美！全家桶清单中的所有应用均已妥善安装。' -ForegroundColor Green          ",
+      "}                                                                                         ",
+      "# 5. 输出差异结果                                                                         ",
+      "if ($extraApps) {                                                                         ",
+      "  WARN '检测到本地已安装、但【未记入】当前全家桶清单的软件：'                             ",
+      "  Write-Host ($extraApps -join ' ') -ForegroundColor Magenta                              ",
+      "  INFO '提示：你可以将以上软件名称追加到清单的 apps_matrix 数组中。'                      ",
+      "} else {                                                                                  ",
+      "  INFO '完美！本地已安装的所有软件均已 100% 被你的清单依赖追踪锁定。'                     ",
+      "}                                                                                         ",
     ]
   },
   "uninstaller": {
@@ -109,7 +107,7 @@
     ]
   },
   "post_uninstall" :[
-    "Warn ''"
+    // "Warn ''"
   ]
 }
 
