@@ -83,7 +83,18 @@
     '$runner_script = "$startup_folder/run_xdg_autostart.cmd"                                      ',
     '                                                                                              ',
     '# 2. 完美融合：內部 PowerShell 會在開機時動態去讀取系統當時的 $env:XDG_CONFIG_HOME            ',
-    '$cmd_content = @"                                                                             ',
+    '$cmd_content = $manifest."run_xdg_autostart.cmd" -join "`r`n"                                     ',
+    '                                                                                              ',
+    '# 3. 寫入引導腳本                                                                             ',
+    '[System.IO.File]::WriteAllText($runner_script, $cmd_content, [System.Text.Encoding]::Default) ',
+    'Write-Host "[成功] 混合體 XDG 啟動監聽器已註冊至 Windows Startup。" -ForegroundColor Green    '
+  ],
+  "unregister_startup_hook": [
+    '$startup_folder = [Environment]::GetFolderPath("Startup")           ',
+    '$runner_script = "$startup_folder/run_xdg_autostart.cmd"            ',
+    'if (Test-Path $runner_script) { Remove-Item $runner_script -Force } '
+  ],
+  "run_xdg_autostart.cmd" : [
     '<# : batch portion                                                                            ',
     '@echo off                                                                                     ',
     'powershell -NoProfile -ExecutionPolicy Bypass "iex (`${%~f0} | Out-String)"                   ',
@@ -103,15 +114,5 @@
     '  }                                                                                           ',
     '}                                                                                             ',
     'sleep 10                                                                                      ',
-    '"@                                                                                            ',
-    '                                                                                              ',
-    '# 3. 寫入引導腳本                                                                             ',
-    '[System.IO.File]::WriteAllText($runner_script, $cmd_content, [System.Text.Encoding]::Default) ',
-    'Write-Host "[成功] 混合體 XDG 啟動監聽器已註冊至 Windows Startup。" -ForegroundColor Green    '
   ],
-  "unregister_startup_hook": [
-    '$startup_folder = [Environment]::GetFolderPath("Startup")           ',
-    '$runner_script = "$startup_folder/run_xdg_autostart.cmd"            ',
-    'if (Test-Path $runner_script) { Remove-Item $runner_script -Force } '
-  ]
 }

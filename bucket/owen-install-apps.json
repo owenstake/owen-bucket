@@ -63,7 +63,7 @@
 
     "owen-system-setting",
     // owen system setting
-    "xdg", "config-startup", "config-right-click-menu",
+    "xdg", "scoop-cmd", "config-startup", "config-right-click-menu",
     "config-explorer", "config-panel-view", "config-file-association",
     "config-right-click-menu-expansion", "config-realtime-protection",
 
@@ -86,11 +86,11 @@
       "$extraApps = @($installed | Where-Object { $_ -notin $trimTargetApps })                   ",
       "                                                                                          ",
       "if ($toInstall) {                                                                         ",
-      "  Write-Host '检测到以下依赖尚未安装，开始查漏补缺：' -ForegroundColor Cyan               ",
+      "  Write-Host '🔧检测到以下依赖尚未安装，开始查漏补缺：' -ForegroundColor Cyan               ",
       "  WARN ($toInstall -join ' ') -ForegroundColor Yellow                                     ",
       "  scoop install $toInstall                                                                ",
       "} else {                                                                                  ",
-      "  Write-Host '完美！全家桶清单中的所有应用均已妥善安装。' -ForegroundColor Green          ",
+      "  Write-Host '🎉完美！全家桶清单中的所有应用均已妥善安装。' -ForegroundColor Green          ",
       "}                                                                                         ",
       "# 5. 输出差异结果                                                                         ",
       "if ($extraApps) {                                                                         ",
@@ -98,7 +98,7 @@
       "  Write-Host ($extraApps -join ' ') -ForegroundColor Magenta                              ",
       "  INFO '提示：你可以将以上软件名称追加到清单的 apps_matrix 数组中。'                      ",
       "} else {                                                                                  ",
-      "  INFO '完美！本地已安装的所有软件均已 100% 被你的清单依赖追踪锁定。'                     ",
+      "  INFO 🎉完美！本地已安装的所有软件均已 100% 被你的清单依赖追踪锁定。                     ",
       "}                                                                                         ",
     ]
   },
