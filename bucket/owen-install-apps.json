@@ -5,9 +5,7 @@
   "homepage": "https://github.com/owenstake/owen-bucket",
   "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
   "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
-  "depends": [
-    "7zip", "git",
-  ],
+  "depends": [ "7zip", "git", "powershell" ],
   "apps_matrix": [
   // "apps_depends": [
     // Install first
@@ -72,12 +70,12 @@
     "owen-windows-terminal-preview",
 
     // Final
-    "scoop-search", "scoop-completion", 
+    "scoop-search", "scoop-completion"
   ],
-      // "$script:bucketsStr = 'main extras versions nerd-fonts'",
   "installer": {
     "script": [
       "''                                                                                        ",
+      "WARN 'Use powershell 7 !!!!'                                                              ",
       "$installed = (scoop list).name + $manifest.name                                           ",
       "$targetApps = $manifest.depends + $manifest.apps_matrix                                   ",
       "$toInstall = @($targetApps | Where-Object { $_.Split('/')[-1].Trim() -notin $installed }) ",
@@ -86,11 +84,11 @@
       "$extraApps = @($installed | Where-Object { $_ -notin $trimTargetApps })                   ",
       "                                                                                          ",
       "if ($toInstall) {                                                                         ",
-      "  Write-Host '🔧检测到以下依赖尚未安装，开始查漏补缺：' -ForegroundColor Cyan               ",
+      "  Write-Host '🔧检测到以下依赖尚未安装，开始查漏补缺：' -ForegroundColor Cyan             ",
       "  WARN ($toInstall -join ' ') -ForegroundColor Yellow                                     ",
       "  scoop install $toInstall                                                                ",
       "} else {                                                                                  ",
-      "  Write-Host '🎉完美！全家桶清单中的所有应用均已妥善安装。' -ForegroundColor Green          ",
+      "  Write-Host '🎉完美！全家桶清单中的所有应用均已妥善安装。' -ForegroundColor Green        ",
       "}                                                                                         ",
       "# 5. 输出差异结果                                                                         ",
       "if ($extraApps) {                                                                         ",
@@ -99,16 +97,13 @@
       "  INFO '提示：你可以将以上软件名称追加到清单的 apps_matrix 数组中。'                      ",
       "} else {                                                                                  ",
       "  INFO 🎉完美！本地已安装的所有软件均已 100% 被你的清单依赖追踪锁定。                     ",
-      "}                                                                                         ",
+      "}                                                                                         "
     ]
   },
   "uninstaller": {
     "script": [
     ]
-  },
-  "post_uninstall" :[
-    // "Warn ''"
-  ]
+  }
 }
 
 
