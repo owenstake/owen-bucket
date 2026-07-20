@@ -1,4 +1,3 @@
-
 {
   "version": "1.0",
   "description": "Owen setup system for all.",
@@ -7,7 +6,6 @@
   "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
   "depends": [ "7zip", "git", "powershell" ],
   "apps_matrix": [
-  // "apps_depends": [
     // Install first
     "owen-install-buckets", 
 
@@ -100,10 +98,7 @@
       "}                                                                                         "
     ]
   },
-  "uninstaller": {
-    "script": [
-    ]
-  }
+  "uninstaller": { "script": [ ] }
 }
 
 
