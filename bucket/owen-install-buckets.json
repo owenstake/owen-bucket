@@ -11,7 +11,7 @@
     "versions":    "https://gitee.com/scoop-installer/versions",
     "nerd-fonts":  "https://gitee.com/scoop-installer/nerd-fonts",
     "owen-bucket": "https://github.com/owenstake/owen-bucket",
-    "DEV-tools":   "https://gitee.com/caojiabin/dev-tools",
+    "DEV-tools":   "https://gitee.com/caojiabin/dev-tools"
   },
   "installer": {
     "script": [

@@ -4,12 +4,12 @@
   "homepage": "https://github.com/owenstake/owen-bucket",
   "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
   "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
-  "depends": "v2rayN-SelfContained",
+  "depends": "v2rayN",
   "installer": {
     "script": [
       "Stop-Process -name v2rayN -ErrorAction SilentlyContinue           ",
       "Stop-Process -name xray   -ErrorAction SilentlyContinue           ",
-      "$prefix = $(scoop prefix v2rayN-SelfContained)                    ",
+      "$prefix = $(scoop prefix v2rayN)                    ",
       "$configFile = \"${prefix}\\guiConfigs\\guiNConfig.json\"          ",
       "# Copy-Item $configFile \"${configFile}.bak\" ",
       "Info 'Parse config file $configFile'                              ",
@@ -43,7 +43,7 @@
   },
   "uninstaller": {
     "script": [
-      "# $prefix = $(scoop prefix v2rayN-SelfContained)                    ",
+      "# $prefix = $(scoop prefix v2rayN)                    ",
       "# $configFile = \"${prefix}\\guiConfigs\\guiNConfig.json\"          ",
       "# Copy-Item $configFile \"${configFile}.bak\" "
     ]
