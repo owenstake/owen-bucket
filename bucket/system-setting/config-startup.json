@@ -32,7 +32,7 @@
   "common_script" : [
     '$base_config_dir = if ($env:XDG_CONFIG_HOME) { $env:XDG_CONFIG_HOME } else { $env:APPDATA }   ',
     '$xdg_start_dir = [System.IO.Path]::GetFullPath("$base_config_dir/autostart")                  ',
-    '$scoopLnkDir = "$env:APPDATA/Microsoft/Windows/Start Menu/Programs/Scoop Apps"                ',
+    '$scoopLnkDir = [Environment]::GetFolderPath('Programs') + "/Scoop Apps"                       ',
     'Function Add-StartupForScoopApp($app) {                                                       ',
     '  # $app = "wechat"                                                                           ',
     '  # Low cost invasion for host os. we are Parasitic system                                    ',
