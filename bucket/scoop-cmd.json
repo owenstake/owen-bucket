@@ -34,15 +34,15 @@
     ]
   },
   "scoop-cd.ps1": [
-    "$scoopRoot = $env:SCOOP                  ",
-    "$appsDir = \"$scoopRoot/apps\"           ",
+    "$env:scoop = Split-Path (Split-Path (Get-Command scoop.ps1).Source -Parent) -Parent ",
+    "$appsDir = \"$env:scoop/apps\"           ",
     "$scoopAppDir = $(scoop prefix $args[0])  ",
     "cd $scoopAppDir                          ",
   ],
   "scoop-reinstall.ps1": [
     "# Summary: Safely uninstalls and reinstalls applications                          ",
-    "$scoopRoot = $env:SCOOP                                                           ",
-    "$appsDir = \"$scoopRoot/apps\"                                                    ",
+    "$env:scoop = Split-Path (Split-Path (Get-Command scoop.ps1).Source -Parent) -Parent ",
+    "$appsDir = \"$env:scoop/apps\"                                                    ",
     "                                                                                  ",
     "ForEach ($app in $args) {                                                         ",
     "  Write-Host \"--- Processing $app ---\" -ForegroundColor Cyan                    ",
