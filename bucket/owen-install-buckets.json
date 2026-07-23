@@ -8,7 +8,7 @@
   "buckets": { 
     "main":        "https://gitee.com/scoop-installer/main",
     "extras":      "https://gitee.com/scoop-installer/extras",
-    "DEV-tools":   "https://gitee.com/caojiabin/dev-tools",
+    "DEV-tools":   "https://github.com/anderlli0053/DEV-tools",
     "owen-bucket": "https://github.com/owenstake/owen-bucket",
     "versions":    "https://gitee.com/scoop-installer/versions",
     "nerd-fonts":  "https://mirror.nju.edu.cn/git/scoop-nerd-fonts.git"
