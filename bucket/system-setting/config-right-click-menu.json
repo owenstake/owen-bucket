@@ -3,9 +3,9 @@
   "description": "Config right click menu with scoop apps",
   "homepage": "https://github.com/owenstake/owen-bucket",
   "depends": [
-    "draw.io",
-    "vim-tux",
     "7zip",
+    "vim-tux",
+    "draw.io",
     "foxit-pdf-reader-2023"
   ],
   "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",

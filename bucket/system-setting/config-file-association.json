@@ -3,10 +3,10 @@
   "description": "Config file assocation with scoop apps",
   "homepage": "https://github.com/owenstake/owen-bucket",
   "depends": [
-    "draw.io",
-    "typora-1.9.5",
     "7zip",
     "autohotkey1.1",
+    "typora-1.9.5",
+    "draw.io",
     "foxit-pdf-reader-2023"
   ],
   "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",

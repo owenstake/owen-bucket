@@ -16,7 +16,7 @@
       "  $content = $manifest.\"$cmd\" -join \"`r`n\"             ",
       "  INFO \"Write to $runner_script\"                         ",
       "  [System.IO.File]::WriteAllText($runner_script, $content) ",
-      "}                                                          ",
+      "}                                                          "
     ]
   },
   "uninstaller": {
@@ -30,19 +30,23 @@
       "  $content = $manifest.\"$cmd\" -join \"`r`n\"             ",
       "  rm \"$runner_script\"                                    ",
       "  INFO \"Remove $runner_script\"                           ",
-      "}                                                          ",
+      "}                                                          "
     ]
   },
   "scoop-cd.ps1": [
     "$env:scoop = Split-Path (Split-Path (Get-Command scoop.ps1).Source -Parent) -Parent ",
-    "$appsDir = \"$env:scoop/apps\"           ",
-    "$scoopAppDir = $(scoop prefix $args[0])  ",
-    "cd $scoopAppDir                          ",
+    "$appsDir = Join-Path $env:scoop 'apps'                                              ",
+    "if ($args.count -eq 1) {                                                            ",
+    "  cd $env:scoop                                                                     ",
+    "} else {                                                                            ",
+    "  $scoopAppDir = $(scoop prefix $args[0])                                           ",
+    "  cd $scoopAppDir                                                                   ",
+    "}                                                                                   "
   ],
   "scoop-reinstall.ps1": [
     "# Summary: Safely uninstalls and reinstalls applications                          ",
     "$env:scoop = Split-Path (Split-Path (Get-Command scoop.ps1).Source -Parent) -Parent ",
-    "$appsDir = \"$env:scoop/apps\"                                                    ",
+    "$appsDir = Join-Path $env:scoop 'apps'                                              ",
     "                                                                                  ",
     "ForEach ($app in $args) {                                                         ",
     "  Write-Host \"--- Processing $app ---\" -ForegroundColor Cyan                    ",
@@ -54,6 +58,6 @@
     "  }                                                                               ",
     "                                                                                  ",
     "  scoop install $app                                                              ",
-    "}                                                                                 ",
-  ],
+    "}                                                                                 "
+  ]
 }
