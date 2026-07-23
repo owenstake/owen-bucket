@@ -16,7 +16,7 @@
     "script": [
       'Invoke-Expression ($manifest.common_script -join [Environment]::NewLine)           ',
       'Invoke-Expression ($manifest.register_startup_hook -join [Environment]::NewLine)   ',
-      '$apps = $manifest.depends                                                      ',
+      '$apps = $manifest.depends                                                          ',
       'ForEach ($a in $apps) {                                                            ',
       '  Add-StartupForScoopApp($a)                                                       ',
       '}                                                                                  ',
@@ -32,7 +32,7 @@
   "common_script" : [
     '$base_config_dir = if ($env:XDG_CONFIG_HOME) { $env:XDG_CONFIG_HOME } else { $env:APPDATA }   ',
     '$xdg_start_dir = [System.IO.Path]::GetFullPath("$base_config_dir/autostart")                  ',
-    '$scoopLnkDir = [Environment]::GetFolderPath('Programs') + "/Scoop Apps"                       ',
+    '$scoopLnkDir = [Environment]::GetFolderPath("Programs") + "/Scoop Apps"                       ',
     'Function Add-StartupForScoopApp($app) {                                                       ',
     '  # $app = "wechat"                                                                           ',
     '  # Low cost invasion for host os. we are Parasitic system                                    ',
