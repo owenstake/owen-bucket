@@ -15,7 +15,7 @@
     "config-right-click-menu-expansion", "config-realtime-protection",
 
     // basic for scoop
-    "7zip", "git", "autohotkey1.1", "vim-tux", "v2rayN-SelfContained", "vscode",
+    "7zip", "git", "autohotkey1.1", "vim-tux", "v2rayN", "vscode",
 
     // System config
     "ms-shuangpin",  "owen-system-setting",

@@ -36,10 +36,11 @@
   "scoop-cd.ps1": [
     "$env:scoop = Split-Path (Split-Path (Get-Command scoop.ps1).Source -Parent) -Parent ",
     "$appsDir = Join-Path $env:scoop 'apps'                                              ",
-    "if ($args.count -eq 1) {                                                            ",
+    "$app = $args[0]                                                                     ",
+    "if ([string]::isnullorEmpty($app)) {                                                ",
     "  cd $env:scoop                                                                     ",
     "} else {                                                                            ",
-    "  $scoopAppDir = $(scoop prefix $args[0])                                           ",
+    "  $scoopAppDir = $(scoop prefix $app)                                               ",
     "  cd $scoopAppDir                                                                   ",
     "}                                                                                   "
   ],
