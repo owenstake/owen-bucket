@@ -6,12 +6,12 @@
   "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
   "depends": ["git","7zip"],
   "buckets": { 
-    "main":        "https://gitee.com/scoop-installer/main",
-    "extras":      "https://gitee.com/scoop-installer/extras",
+    "main":        "https://mirror.nju.edu.cn/git/scoop-main.git",
+    "extras":      "https://mirror.nju.edu.cn/git/scoop-extras.git",
+    "versions":    "https://mirror.nju.edu.cn/git/scoop-versions.git",
+    "nerd-fonts":  "https://mirror.nju.edu.cn/git/scoop-nerd-fonts.git"
     "DEV-tools":   "https://github.com/anderlli0053/DEV-tools",
     "owen-bucket": "https://github.com/owenstake/owen-bucket",
-    "versions":    "https://gitee.com/scoop-installer/versions",
-    "nerd-fonts":  "https://mirror.nju.edu.cn/git/scoop-nerd-fonts.git"
   },
   "installer": {
     "script": [

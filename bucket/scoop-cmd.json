@@ -34,6 +34,7 @@
     ]
   },
   "scoop-cd.ps1": [
+    "# Summary: Faster cd to scoop app directory with app name",
     "$env:scoop = Split-Path (Split-Path (Get-Command scoop.ps1).Source -Parent) -Parent ",
     "$appsDir = Join-Path $env:scoop 'apps'                                              ",
     "$app = $args[0]                                                                     ",

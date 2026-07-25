@@ -4,7 +4,7 @@
   "homepage": "https://github.com/owenstake/owen-bucket",
   "depends": [
     "xdg",
-    "v2rayN-SelfContained",
+    "v2rayN",
     "weiyunsync",
     "wxwork",
     "wechat",

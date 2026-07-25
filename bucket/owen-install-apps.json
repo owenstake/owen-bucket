@@ -9,16 +9,16 @@
     // Install first
     "owen-install-buckets", 
 
-    // owen system setting
-    "xdg", "scoop-cmd", "config-startup", "config-right-click-menu",
-    "config-explorer", "config-panel-view", "config-file-association",
+    // owen system setting . No depends first
+    "xdg", "scoop-cmd", "config-explorer", "config-panel-view",
+    "config-startup", "config-right-click-menu", "config-file-association",
     "config-right-click-menu-expansion", "config-realtime-protection",
 
     // basic for scoop
     "7zip", "git", "autohotkey1.1", "vim-tux", "v2rayN", "vscode",
 
     // System config
-    "ms-shuangpin",  "owen-system-setting",
+    "ms-shuangpin",  // "owen-system-setting",
 
     // CLI basic tool
     "gow", "gsudo", "sudo", "less", "bat", "tre-command", "iconv",         
