@@ -18,6 +18,7 @@
       "''                                                                            ",
       "$buckets = $manifest.buckets                                                  ",
       "                                                                              ",
+      "scoop bucket rm main                                                          ",
       "$installed = $(scoop bucket list).name                                        ",
       "$targetBuckets = $buckets.PSObject.Properties.Name                            ",
       "$toInstall = @($targetBuckets | Where-Object { $_ -notin $installed })        ",
