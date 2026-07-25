@@ -83,7 +83,7 @@
       "if ($toInstall) {                                                                         ",
       "  Write-Host '🔧检测到以下依赖尚未安装，开始查漏补缺：' -ForegroundColor Cyan             ",
       "  WARN ($toInstall -join ' ') -ForegroundColor Yellow                                     ",
-      "  scoop install $toInstall                                                                ",
+      "  scoop install $toInstall  6>$null                                                       ",
       "} else {                                                                                  ",
       "  Write-Host '🎉完美！全家桶清单中的所有应用均已妥善安装。' -ForegroundColor Green        ",
       "}                                                                                         ",
