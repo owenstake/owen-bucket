@@ -9,9 +9,9 @@
     "main":        "https://mirror.nju.edu.cn/git/scoop-main.git",
     "extras":      "https://mirror.nju.edu.cn/git/scoop-extras.git",
     "versions":    "https://mirror.nju.edu.cn/git/scoop-versions.git",
-    "nerd-fonts":  "https://mirror.nju.edu.cn/git/scoop-nerd-fonts.git"
+    "nerd-fonts":  "https://mirror.nju.edu.cn/git/scoop-nerd-fonts.git",
     "DEV-tools":   "https://github.com/anderlli0053/DEV-tools",
-    "owen-bucket": "https://github.com/owenstake/owen-bucket",
+    "owen-bucket": "https://github.com/owenstake/owen-bucket"
   },
   "installer": {
     "script": [
