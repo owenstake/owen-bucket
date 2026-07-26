@@ -14,7 +14,7 @@
   },
   "installer": {
     "script": [
-      "''                                                                              ",
+      "Write-Host ''                                                                   ",
       "$buckets = $manifest.buckets                                                    ",
       "$installed = $(scoop bucket list).name                                          ",
       "$targetBuckets = $buckets.PSObject.Properties.Name                              ",
