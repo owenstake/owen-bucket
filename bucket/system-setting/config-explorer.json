@@ -98,6 +98,9 @@
     "  If (!(Test-Path $path)) { New-Item $path -Force | Out-Null }     ",
     "  $n = 'System.IsPinnedToNameSpaceTree'                            ",
     "  Set-ItemProperty -Path $path -Name $n -Value $status -Type DWord ",
+    "  $n = 'custom_folder_name'                                        ",
+    "  $v = $key                                                        ",
+    "  Set-ItemProperty -Path $path -Name $n -Value $v -Type string     ",
     "}                                                                  ",
     "                                                                   "
   ],
