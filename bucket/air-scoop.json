@@ -7,13 +7,20 @@
   "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
   "installer": {
     "script": [
-      "''                                                             ",
-      "$repo   = 'https://gitee.com/mrair/scoop'                      ",
-      "$branch = 'develop'                                            ",
-      "scoop config SCOOP_REPO   $repo   *> $null                     ",
-      "scoop config SCOOP_BRANCH $branch *> $null                     ",
-      "WARN \"Changing scoop repo and branch to <$repo> <$branch>.\"  ",
-      "scoop update                                                   "
+      "''                                                                    ",
+      "if (!($env:scoop)) {                                                  ",
+      "  $shimsPath = Split-Path (Get-Command scoop.ps1).Source -Parent      ",
+      "  $env:scoop = Split-Path $shimsPath -Parent                          ",
+      "  [Environment]::SetEnvironmentVariable('scoop', $env:scoop, 'User')  ",
+      "}                                                                     ",
+      "WARN ('Set Env:Scoop to {0}' -f $env:scoop)",
+      "''                                                                    ",
+      "$repo   = 'https://gitee.com/mrair/scoop'                             ",
+      "$branch = 'develop'                                                   ",
+      "scoop config SCOOP_REPO   $repo   *> $null                            ",
+      "scoop config SCOOP_BRANCH $branch *> $null                            ",
+      "WARN ('Changing scoop repo and branch to {0}  {1}' -f $repo,$branch)  ",
+      "scoop update                                                          "
     ]
   },
   "uninstaller": {

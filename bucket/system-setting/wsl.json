@@ -12,6 +12,6 @@
   },
   "uninstaller": {
     "script": [
-      "Write-Host You should uninstalling WSL Manully", ]
+      "WARN 'You should uninstalling WSL Manully' ", ]
   }
 }

@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "description": "Smart cd you need",
+  "note" : "Please add 'del alias:cd' manully to $profile",
+  "homepage": "https://github.com/owenstake/owen-bucket",
+  "depends": ["zoxide", "cd-with-back"],
+  "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+  "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+  "psmodule": { "name": "default" },
+  "pre_install" : [
+    "''                                                         ",
+    "if ($null -ne $manifest.files) {                           ",
+    "  foreach ($prop in $manifest.files.psobject.Properties) { ",
+    "    if ($prop.Name -like 'default.*') {                    ",
+    "      $filename = $prop.Name -replace 'default',$app       ",
+    "    } else {                                               ",
+    "      $filename = $prop.Name                               ", 
+    "    }                                                      ",
+    "    $fullpath = Join-Path $dir $filename                   ",
+    "    info ('Writing to ' + $fullpath)                       ",
+    "    $prop.Value = $prop.Value -replace '(?m)\\s+$', ''     ",
+    "    Set-Content -Path $fullpath -Value $prop.value         ",
+    "  }                                                        ",
+    "}                                                          "
+  ],
+  "installer": {
+    "script": [
+      "if ($manifest.psmodule.name -eq 'default') {       ",
+      "  $manifest.psmodule.name = $app                   ",
+      "}                                                  "
+    ]
+  },
+  "uninstaller": {
+    "script": [
+      "if ($manifest.psmodule.name -eq 'default') {       ",
+      "  $manifest.psmodule.name = $app                   ",
+      "}                                                  "
+    ]
+  },
+  "files" : {
+    "default.psm1" : [
+      "# zoxide init                                                                ",
+      "$Env:_ZO_FZF_OPTS='--reverse --height 60%'                                   ",
+      "                                                                             ",
+      "# Initialize zoxide                                                          ",
+      "Invoke-Expression (& { (zoxide init powershell --hook none | Out-String) })  ",
+      "Function zc($p) {z $pwd $p}   # match the path in current dir                ",
+      "Function zd {cd ~/Downloads }                                                ",
+      "Function ze {zoxide edit }                                                   ",
+      "Function zh {cd $Env:OwenHome }                                              ",
+      "Function zr {cd ~/Desktop }                                                  ",
+      "Function zw {cd $Env:weiyun }                                                ",
+      "                                                                             ",
+      "Function zb($skipCurDir=$false) {                                            ",
+      "  $markFiles = ('.root', '.git', '.svn', 'package.json')                     ",
+      "  $curDir = $(Get-Item '.')                                                  ",
+      "  if ($skipCurDir) {                                                         ",
+      "    $prevDir = $curDir                                                       ",
+      "    $curDir = $curDir.Parent                                                 ",
+      "  }                                                                          ",
+      "  # Iterating to find the root                                               ",
+      "  while ($curDir) {                                                          ",
+      "    $dirName = $curDir.FullName                                              ",
+      "    ForEach($m in $markFiles) {                                              ",
+      "      If (Test-Path (Join-Path $dirName $m)) {                               ",
+      "        cd $dirName                                                          ",
+      "        return                                                               ",
+      "      }                                                                      ",
+      "    }                                                                        ",
+      "    $prevDir = $curDir                                                       ",
+      "    $curDir = $curDir.Parent                                                 ",
+      "  }                                                                          ",
+      "  cd $prevDir   # cd to current disk root                                    ",
+      "}                                                                            ",
+      "Function zbb($p) {                                                           ",
+      "  zb $true                                                                   ",
+      "}                                                                            ",
+      "                                                                             ",
+      "Add-PostPromptHook -Name 'zoxide-handler' -ScriptBlock {                     ",
+      "  param($NewPath, $OldPath)                                                  ",
+      "  zoxide add '--' $NewPath                                                   ", 
+      "}                                                                            ",
+      "                                                                             ",
+      "Export-ModuleMember -Function *                                              "
+    ]
+  }
+}

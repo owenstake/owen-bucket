@@ -5,7 +5,7 @@
     "Run < scoop reinstall need-reinstall > to reinstall the apps.                                          ",
     "Reinstall apps in new system to take effect. This apps invade the host system which modify the C disk, ",
     "and need reinstallation to rebuild the registry, hooks, config file or shortcuts                       ",
-    "on host system . Registry is a kind of file on c disk.                                                 ",
+    "on host system . Registry is a kind of file on c disk.                                                 "
   ],
   "homepage": "https://github.com/owenstake/owen-bucket",
   "depends": [
@@ -25,7 +25,7 @@
     "config-realtime-protection",
 
     // modify env which is located on registry.
-    "xdg",
+    "xdg"
   ],
   "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
   "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
@@ -41,7 +41,7 @@
     "script": [
       "''                                                                           ",
       "Write-Host 'Uninstall all depends:' $manifest.depends -ForegroundColor 'Cyan'",
-      "scoop uninstall $manifest.depends                                            ",
+      "scoop uninstall $manifest.depends                                            "
     ]
   }
 }

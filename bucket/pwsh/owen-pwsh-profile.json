@@ -1,0 +1,85 @@
+{
+  "version": "1.0",
+  "description": "CD Location History Tracker",
+  "note" : "",
+  "homepage": "https://github.com/owenstake/owen-bucket",
+  "depends": [],
+  "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+  "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+  "psmodule": { "name": "default" },
+  "pre_install" : [
+    "''                                                         ",
+    "if ($null -ne $manifest.files) {                           ",
+    "  foreach ($prop in $manifest.files.psobject.Properties) { ",
+    "    if ($prop.Name -like 'default.*') {                    ",
+    "      $filename = $prop.Name -replace 'default',$app       ",
+    "    } else {                                               ",
+    "      $filename = $prop.Name                               ", 
+    "    }                                                      ",
+    "    $fullpath = Join-Path $dir $filename                   ",
+    "    info ('Writing to ' + $fullpath)                       ",
+    "    Set-Content -Path $fullpath -Value $prop.value         ",
+    "  }                                                        ",
+    "}                                                          "
+  ],
+  "installer": {
+    "script": [
+      "if ($manifest.psmodule.name -eq 'default') {       ",
+      "  $manifest.psmodule.name = $app                   ",
+      "}                                                  "
+    ]
+  },
+  "uninstaller": {
+    "script": [
+      "if ($manifest.psmodule.name -eq 'default') {       ",
+      "  $manifest.psmodule.name = $app                   ",
+      "}                                                  "
+    ]
+  },
+  "files" : {
+    "default.psm1" : [
+      "# [Powershell test for noninteractive mode - Stack Overflow]                  ",
+      "# https://stackoverflow.com/questions/9738535/                                ",
+      "# powershell-test-for-noninteractive-mode                                     ",
+      "function IsInteractive {                                                      ",
+      "  # not including `-NonInteractive` since it apparently does nothing          ",
+      "  # Does not present an interactive prompt to the user - no, it does present! ",
+      "  $non_interactive = '-command', '-c', '-encodedcommand',                     ",
+      "                        '-e', '-ec', '-file', '-f', '-noexit'                 ",
+      "  $interactive = , '-noexit'                                                  ",
+      "                                                                              ",
+      "  If ([Environment]::GetCommandLineArgs() |                                   ",
+      "            Where-Object -FilterScript {$PSItem -in $interactive}) {          ",
+      "    return $true                                                              ",
+      "  }                                                                           ",
+      "  # alternatively `$non_interactive [-contains|-eq] $PSItem`                  ",
+      "  -not ([Environment]::GetCommandLineArgs() |                                 ",
+      "            Where-Object -FilterScript {$PSItem -in $non_interactive})        ",
+      "}                                                                             ",
+      "                                                                              ",
+      "If (!(IsInteractive)) { exit 2 }    # Exit if we are in script.               ",
+      "# ========== !!! SCRIPT EXCUTING END HERE !!! ================                ",
+      "                                                                              ",
+      "# ========== CLI CONFIG START ================================                ",
+      "del alias:cd ; import-module core-utils-pwsh                                  ",
+      "import-module input-enhance-pwsh                                              ",
+      "import-module navigation-enhance-pwsh                                         ",
+      "import-module scoop-utils    # ??                                             ",
+      "Import-Module scoop-completion                                                ",
+      "                                                                              ",
+      "# $env:PAGER  = 'bat'                                                         ",
+      "# $env:EDITOR = 'nvim'                                                        ",
+      "# $env:SHELL='powershell'                                                     ",
+      "If($pwd.path -eq $Env:USERPROFILE) {                                          ",
+      "    # wezterm not specified the cwd                                           ",
+      "    set-location $Env:Home                                                    ",
+      "} else {                                                                      ",
+      "    # wezterm specified the cwd                                               ",
+      "}                                                                             ",
+      "                                                                              ",
+      "exit 0                                                                        ",
+      "# ========== CLI CONFIG END ==================================                ",
+      "                                                                              "
+    ]
+  }
+}

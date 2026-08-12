@@ -1,0 +1,79 @@
+{
+  "version": "1.0",
+  "description": "psreadline config with better ctrl-e",
+  "note" : "",
+  "homepage": "https://github.com/owenstake/owen-bucket",
+  "depends": [],
+  "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+  "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+  "psmodule": { "name": "default" },
+  "pre_install" : [
+    "''                                                         ",
+    "if ($null -ne $manifest.files) {                           ",
+    "  foreach ($prop in $manifest.files.psobject.Properties) { ",
+    "    if ($prop.Name -like 'default.*') {                    ",
+    "      $filename = $prop.Name -replace 'default',$app       ",
+    "    } else {                                               ",
+    "      $filename = $prop.Name                               ", 
+    "    }                                                      ",
+    "    $fullpath = Join-Path $dir $filename                   ",
+    "    info ('Writing to ' + $fullpath)                       ",
+    "    $prop.Value = $prop.Value -replace '(?m)\\s+$', ''     ",
+    "    Set-Content -Path $fullpath -Value $prop.value         ",
+    "  }                                                        ",
+    "}                                                          "
+  ],
+  "installer": {
+    "script": [
+      "if ($manifest.psmodule.name -eq 'default') { ",
+      "  $manifest.psmodule.name = $app             ",
+      "}                                            "
+    ]
+  },
+  "uninstaller": {
+    "script": [
+      "if ($manifest.psmodule.name -eq 'default') { ",
+      "  $manifest.psmodule.name = $app             ",
+      "}                                            "
+    ]
+  },
+  "files" : {
+    "default.psm1" : [
+      "# Import-Module PSReadLine                                          ",
+      "set-PSReadLineOption -EditMode Emacs                                ",
+      "# Shows navigable menu of all options when hitting Tab              ",
+      "Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete            ",
+      "# Autocompletion for arrow keys                                     ",
+      "Set-PSReadlineKeyHandler -Key Ctrl+p -Function HistorySearchBackward",
+      "Set-PSReadlineKeyHandler -Key Ctrl+n -Function HistorySearchForward ",
+      "Set-PSReadLineOption -HistorySearchCursorMovesToEnd                 ",
+      "# auto suggestions                                                  ",
+      "if ($PSVersionTable.PSVersion.Major -ge 7) {                        ",
+      "  Set-PSReadLineOption -PredictionSource HistoryAndPlugin           ",
+      "}else{                                                              ",
+      "  Set-PSReadLineOption -PredictionSource History                    ",
+      "}                                                                   ",
+      "                                                                    ",
+      "$psrlKeyOptions = @{                                                ",
+      "  Key              = 'Ctrl+e'                                       ",
+      "  BriefDescription = 'Go to EndOfLine or AcceptSuggestion'          ",
+      "  LongDescription  = 'If cursor is not at the end of line,' +       ",
+      "        'then go to end of line, otherwise try to AcceptSuggestion' ",
+      "  ScriptBlock      = {                                              ",
+      "    $line = $null                                                   ",
+      "    $cursor = $null                                                 ",
+      "    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState(       ",
+      "                      [ref]$line, [ref]$cursor)                     ",
+      "    if ($cursor -lt $line.Length) {                                 ",
+      "      [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()         ",
+      "    } else {                                                        ",
+      "      [Microsoft.PowerShell.PSConsoleReadLine]::AcceptSuggestion()  ",
+      "    }                                                               ",
+      "  }                                                                 ",
+      "}                                                                   ",
+      "Set-PSReadLineKeyHandler @psrlKeyOptions                            ",
+      "                                                                    ",
+      "# Export-ModuleMember                                               "
+    ]
+  }
+}

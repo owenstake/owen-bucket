@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "description": "Owen's custom AutoHotkey keyboard enhancement toolkit.",
+  "homepage": "https://github.com/yourname/owen-keyboard",
+  "url": "https://github.com/owenstake/owen-keyboard/archive/refs/tags/v1.0.0.zip",
+  "hash": "FF22683E12A83C0A97DEAE203A570C7B9BB172C7770B162DCB9343ABCFC3D1E7",
+  "depends": "autohotkey1.1",
+  "extract_dir": "owen-keyboard-1.0.0",
+  "env_set": {
+    // "OWEN_KEYBOARD_DIR": "$dir"
+  },
+  // "bin": "keyremap.ahk",
+  "shortcuts": [ [ "keyremap.ahk", "keyremap"] ],
+  "psmodule": { "name": "default" },
+  "pre_install" : [
+    "''                                                         ",
+    "if ($null -ne $manifest.files) {                           ",
+    "  foreach ($prop in $manifest.files.psobject.Properties) { ",
+    "    if ($prop.Name -like 'default.*') {                    ",
+    "      $filename = $prop.Name -replace 'default',$app       ",
+    "    } else {                                               ",
+    "      $filename = $prop.Name                               ", 
+    "    }                                                      ",
+    "    $fullpath = Join-Path $dir $filename                   ",
+    "    info ('Writing to ' + $fullpath)                       ",
+    "    Set-Content -Path $fullpath -Value $prop.value         ",
+    "  }                                                        ",
+    "}                                                          ",
+  ],
+  "installer": {
+    "script": [
+      "if ($manifest.psmodule.name -eq 'default') {       ",
+      "  $manifest.psmodule.name = $app                   ",
+      "}                                                  "
+    ]
+  },
+  "post_install": [
+    "Write-Host '正在配置 Owen Keyboard 开机自启...' -ForegroundColor Green",
+    "$lnkPath = $env:xdg_config_home + '/autostart/' + $app + '.lnk' ",
+    "info $lnkPath",
+    "$shell = New-Object -ComObject WScript.Shell",
+    "$shortcut = $shell.CreateShortcut($lnkPath)",
+    "$shortcut.TargetPath = \"$dir\\keyremap.ahk\"",
+    "$shortcut.WorkingDirectory = \"$dir\"",
+    "$shortcut.Description = 'Owen Custom AHK Toolkit'  ",
+    "$shortcut.Save()                                   ",
+    "Write-Host '配置完成！' -ForegroundColor Cyan      ",
+    "                                                   "
+  ],
+  "uninstaller": {
+    "script": [
+      "if ($manifest.psmodule.name -eq 'default') {                           ",
+      "  $manifest.psmodule.name = $app                                       ",
+      "}                                                                      ",
+      "                                                                       ",
+      "Write-Host '正在移除 Owen Keyboard 开机自启...' -ForegroundColor Yellow",
+      "$lnkPath = $env:xdg_config_home + '/autostart/' + $app + '.lnk'        ",
+      "if (Test-Path $lnkPath) { Remove-Item $lnkPath -Force }                "
+    ]
+  },
+  "files" : {
+    "default.psm1" : [
+      "Add-PostPromptHook -Name 'test-key' -ScriptBlock { ",
+      "  write-host 'key haha'                            ",
+      "}                                                  ",
+      "                                                   "
+    ]
+  }
+
+}

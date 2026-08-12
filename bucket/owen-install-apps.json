@@ -7,10 +7,10 @@
   "depends": [ "7zip", "git", "powershell" ],
   "apps_matrix": [
     // Install first
-    "owen-install-buckets", 
+    "air-scoop", "owen-install-buckets", 
 
     // owen system setting . No depends first
-    "xdg", "scoop-cmd", "config-explorer", "config-panel-view",
+    "xdg", "scoop-utils", "config-explorer",
     "config-startup", "config-right-click-menu", "config-file-association",
     "config-right-click-menu-expansion", "config-realtime-protection",
 
@@ -21,15 +21,15 @@
     "ms-shuangpin",  // "owen-system-setting",
 
     // CLI basic tool
-    "gow", "gsudo", "sudo", "less", "bat", "tre-command", "iconv",         
+    "gsudo", "sudo", "less", "bat", "tre-command", "iconv",         
     "recycle-bin", "file", "single-instance",
 
     // CLI program tool
     "global", "go", "lua", "nodejs-lts", "python", "rust", "winget", "mingw",
-    "neovim", "neovim-qt", "openjdk",
+    "neovim", "openjdk",
 
     // CLI super tool
-    "agg", "lf", "eza", "fd", "ripgrep", "fzf", "pscolor", "psfzf", 
+    "eza", "fd", "ripgrep", "fzf", "psfzf", 
     "psreadline", "chafa", "psmux", "powershell", "latex",
 
     // font
@@ -73,8 +73,8 @@
     "script": [
       "''                                                                                        ",
       "WARN 'Use powershell 7 !!!!'                                                              ",
-      "$installed = (scoop list).name + $manifest.name                                           ",
-      "$targetApps = $manifest.depends + $manifest.apps_matrix                                   ",
+      "$installed = (scoop list).name + $app                                                     ",
+      "$targetApps = $manifest.depends + $manifest.apps_matrix + $app                            ",
       "$toInstall = @($targetApps | Where-Object { $_.Split('/')[-1].Trim() -notin $installed }) ",
       "                                                                                          ",
       "$trimTargetApps = @($targetApps | ForEach-Object {$_.Split('/')[-1].Trim()})              ",

@@ -1,0 +1,84 @@
+{
+  "version": "1.0",
+  "description": "CD Location History Tracker",
+  "note" : "",
+  "homepage": "https://github.com/owenstake/owen-bucket",
+  "depends": ["cd-with-back"],
+  "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
+  "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
+  "psmodule": { "name": "default" },
+  "pre_install" : [
+    "''                                                         ",
+    "if ($null -ne $manifest.files) {                                  ",
+    "  foreach ($prop in $manifest.files.psobject.Properties) { ",
+    "    if ($prop.Name -like 'default.*') {                    ",
+    "      $filename = $prop.Name -replace 'default',$app       ",
+    "    } else {                                               ",
+    "      $filename = $prop.Name                               ", 
+    "    }                                                      ",
+    "    $fullpath = Join-Path $dir $filename                   ",
+    "    info ('Writing to ' + $fullpath)                       ",
+    "      $prop.Value = $prop.Value -replace '(?m)\\s+$', ''   ",
+    "    Set-Content -Path $fullpath -Value $prop.value         ",
+    "  }                                                        ",
+    "}                                                          ",
+  ],
+  "installer": {
+    "script": [
+      "if ($manifest.psmodule.name -eq 'default') {       ",
+      "  $manifest.psmodule.name = $app                   ",
+      "}                                                  "
+    ]
+  },
+  "uninstaller": {
+    "script": [
+      "if ($manifest.psmodule.name -eq 'default') {       ",
+      "  $manifest.psmodule.name = $app                   ",
+      "}                                                  "
+    ]
+  },
+  "files" : {
+    "default.psm1" : [
+      "Function LocationHistoryListPush($loc=$pwd) {                          ",
+      "  $loc = (Get-Item $loc).FullName                                      ",
+      "  $LocationHistoryListMaxCount = 20                                    ",
+      "  # Remove duplicat item                                               ",
+      "  ForEach($l in $LocationHistoryList) {                                ",
+      "    if ($l -eq $loc) {                                                 ",
+      "      $LocationHistoryList.Remove($l)                                  ",
+      "      break                                                            ",
+      "    }                                                                  ",
+      "  }                                                                    ",
+      "  # Enqueue                                                            ",
+      "  $LocationHistoryList.Insert(0, $loc)                                 ",
+      "  # Dequeue if oversize                                                ",
+      "  if ($LocationHistoryList.Count -gt $LocationHistoryListMaxCount) {   ",
+      "    $LocationHistoryList.RemoveAt($LocationHistoryList.Count - 1)      ",
+      "  }                                                                    ",
+      "}                                                                      ",
+      "Function d($index) {                                                   ",
+      "  if ($index) {                                                        ",
+      "    cd $LocationHistoryList[$index]                                    ",
+      "  } else {                                                             ",
+      "    $nl = [Environment]::NewLine                                       ",
+      "    Write-Host ($nl + 'Location History List:' + $nl)                  ",
+      "    For ($i=0; $i -le $LocationHistoryList.Count - 1; $i++) {          ",
+      "      $p = $LocationHistoryList[$i]                                    ",
+      "      Write-Host ([string]$i + [char]9 + $p)                           ",
+      "    }                                                                  ",
+      "  }                                                                    ",
+      "}                                                                      ",
+      "                                                                       ",
+      "Add-PostPromptHook -Name 'HistoryTracker-handler' -ScriptBlock {       ",
+      "  param($NewPath, $OldPath)                                            ",
+      "  LocationHistoryListPush $NewPath                                     ",
+      "}                                                                      ",
+      "                                                                       ",
+      "# init                                                                 ",
+      "$LocationHistoryList = [System.Collections.Generic.List[object]]::new()",
+      "LocationHistoryListPush                                                ",
+      "                                                                       ",
+      "Export-ModuleMember -Function d                                        "
+    ]
+  }
+}
