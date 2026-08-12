@@ -39,7 +39,7 @@
       "Set-ItemViewStatusInNavigationPanel 'Documents'  0                                 ",
       "Set-ItemViewStatusInNavigationPanel 'OneDrive'   0                                 ",
       "                                                                                   ",
-      "Warn 'Restart explorer => kill -name explorer '                                    ",
+      "write-warning 'Restart explorer => kill -name explorer '                           ",
       "                                                                                   "
     ]
   },
@@ -73,7 +73,8 @@
       "Set-ItemViewStatusInNavigationPanel 'Documents'  1                                 ",
       "Set-ItemViewStatusInNavigationPanel 'OneDrive'   1                                 ",
       "                                                                                   ",
-      "Warn 'Restart explorer => kill -name explorer '                                    "
+      "write-warning 'Restart explorer => kill -name explorer '                           ",
+      "                                                                                   "
     ]
   },
   "common_script" : [
@@ -103,5 +104,5 @@
     "  Set-ItemProperty -Path $path -Name $n -Value $v -Type string     ",
     "}                                                                  ",
     "                                                                   "
-  ],
+  ]
 }

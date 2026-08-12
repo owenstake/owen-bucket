@@ -50,6 +50,8 @@
   "files" : {
     "default.psm1" : [
       "Import-Module scoop-completion                                                         ",
+      "                                                                                       ",
+      "set-alias s scoop                                                                      ",
       "# scoop auto-completion for subcommand reinstall cd                                    ",
       "Register-ArgumentCompleter -CommandName 'scoop' -ScriptBlock {                         ",
       "  param($wordToComplete, $commandAst, $cursorPosition)                                 ",
@@ -218,49 +220,65 @@
       "                                                                               "
     ],
     "scoop-cd.ps1": [
-      "# Summary: Faster cd to scoop app directory with app name",
+      "# Summary: Faster cd to scoop app directory with app name                           ",
       "$env:scoop = Split-Path (Split-Path (Get-Command scoop.ps1).Source -Parent) -Parent ",
       "$appsDir = Join-Path $env:scoop 'apps'                                              ",
       "$app = $args[0]                                                                     ",
       "if ([string]::isnullorEmpty($app)) {                                                ",
       "  cd $env:scoop                                                                     ",
       "} else {                                                                            ",
-      "  $scoopAppDir = $(scoop prefix $app)                                               ",
-      "  cd $scoopAppDir                                                                   ",
+      "  $scoopAppDir = Join-Path $appsDir $app                                            ",
+      "  $scoopAppDir = Join-Path $scoopAppDir 'current'                                   ",
+      "  if (test-path $scoopAppDir -ea 0) {                                               ",
+      "    cd $scoopAppDir                                                                 ",
+      "  } else {                                                                          ",
+      "    write-warning ($app + ' is not installed')                                      ",
+      "    exit -1                                                                         ",
+      "  }                                                                                 ",
       "}                                                                                   "
     ],
     "scoop-reinstall.ps1": [
-      "# Summary: Safely uninstalls and reinstalls applications                          ",
+      "# Summary: Safely uninstalls and reinstalls applications                            ",
       "$env:scoop = Split-Path (Split-Path (Get-Command scoop.ps1).Source -Parent) -Parent ",
       "$appsDir = Join-Path $env:scoop 'apps'                                              ",
-      "                                                                                  ",
-      "ForEach ($app in $args) {                                                         ",
-      "  Write-Host \"--- Processing $app ---\" -ForegroundColor Cyan                    ",
-      "                                                                                  ",
-      "  if (Test-Path \"$appsDir/$app/current\") {                                      ",
-      "      scoop uninstall $app                                                        ",
-      "  } else {                                                                        ",
-      "      WARN \"$app is not installed. Skipping uninstall.\" -ForegroundColor Yellow ",
-      "  }                                                                               ",
-      "                                                                                  ",
-      "  scoop install $app                                                              ",
-      "}                                                                                 "
+      "                                                                                    ",
+      "ForEach ($app in $args) {                                                           ",
+      "  Write-Host ('--- Processing {0} ---' -f $app) -F Cyan                             ",
+      "                                                                                    ",
+      "  $scoopAppDir = Join-Path $appsDir $app                                            ",
+      "  $scoopAppDir = Join-Path $scoopAppDir 'current'                                   ",
+      "  if (Test-Path $scoopAppDir) {                                                     ",
+      "    scoop uninstall $app                                                            ",
+      "  } else {                                                                          ",
+      "    write-warning ($app + 'is not installed. Skipping uninstall.')                  ",
+      "  }                                                                                 ",
+      "                                                                                    ",
+      "  scoop install $app                                                                ",
+      "}                                                                                   "
     ],
     "scoop-bat.ps1": [
       "# Summary: bat - better cat for manifest                                            ",
       "$env:scoop = Split-Path (Split-Path (Get-Command scoop.ps1).Source -Parent) -Parent ",
-      "$appsDir = Join-Path $env:scoop 'apps'                                              ",
+      "                                                                                    ",
       "$app = $args[0]                                                                     ",
       "scoop cat $app | bat -l json                                                        "
     ],
     "scoop-vim.ps1": [
       "# Summary: nvim for manifest                                                        ",
       "$env:scoop = Split-Path (Split-Path (Get-Command scoop.ps1).Source -Parent) -Parent ",
-      "$appsDir = Join-Path $env:scoop 'apps'                                              ",
+      "                                                                                    ",
       "$app = $args[0]                                                                     ",
-      "scoop cat $app | nvim - -c 'set ft=json'                                            "
+      "scoop cat $app | nvim - -R -c 'set ft=json'                                         "
     ],
-    "scoop-rein.ps1": [
+    "scoop-in.ps1": [
+      "# Summary: rein is alias for reinstall                                              ",
+      "scoop install @args                                                                 "
+    ],
+    "scoop-un.ps1": [
+      "# Summary: rein is alias for reinstall                                              ",
+      "scoop uninstall @args                                                               "
+    ],
+    "scoop-re.ps1": [
       "# Summary: rein is alias for reinstall                                              ",
       "scoop reinstall @args                                                               "
     ]
