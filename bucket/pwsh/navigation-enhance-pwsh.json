@@ -302,7 +302,7 @@
     ],
     "d.ps1" : [
       "Function script:__LocationHistoryListPush($loc=$pwd) {                 ",
-      "  $loc = (Get-Item $loc).FullName                                      ",
+      "  $loc = (Get-Item $loc -force).FullName                               ",
       "  $LocationHistoryListMaxCount = 20                                    ",
       "  # Remove duplicat item                                               ",
       "  ForEach($l in $LocationHistoryList) {                                ",
@@ -383,7 +383,7 @@
       "                                                                                      ",
       "Function zb($skipCurDir=$false) {                                                     ",
       "  $markFiles = ('.root', '.git', '.svn', 'package.json')                              ",
-      "  $curDir = $(Get-Item '.')                                                           ",
+      "  $curDir = $(Get-Item '.' -force)                                                    ",
       "  if ($skipCurDir) {                                                                  ",
       "    $prevDir = $curDir                                                                ",
       "    $curDir = $curDir.Parent                                                          ",
