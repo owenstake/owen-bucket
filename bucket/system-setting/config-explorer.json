@@ -28,7 +28,7 @@
       "'# 3. 在资源管理器顶部显示完整路径'                                                ",
       "Set-ItemProperty -Path $cabPath -Name 'FullPath' -Value 1 -Type DWord -Force       ",
       "                                                                                   ",
-      "'# 4. Set item view in navigation panel =='                                        ",
+      "'# 4. Set item view in navigation panel'                                           ",
       "Set-ItemViewStatusInNavigationPanel 'Downloads'  1                                 ",
       "Set-ItemViewStatusInNavigationPanel 'Desktop'    1                                 ",
       "Set-ItemViewStatusInNavigationPanel 'Recycle'    1                                 ",

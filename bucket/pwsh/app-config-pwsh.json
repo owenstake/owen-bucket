@@ -8,33 +8,34 @@
   "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
   "psmodule": { "name": "default" },
   "pre_install" : [
-    "''                                                         ",
-    "if ($null -ne $manifest.files) {                           ",
-    "  foreach ($prop in $manifest.files.psobject.Properties) { ",
-    "    if ($prop.Name -like 'default.*') {                    ",
-    "      $filename = $prop.Name -replace 'default',$app       ",
-    "    } else {                                               ",
-    "      $filename = $prop.Name                               ", 
-    "    }                                                      ",
-    "    $fullpath = Join-Path $dir $filename                   ",
-    "    info ('Writing to ' + $fullpath)                       ",
-    "    $prop.Value = $prop.Value -replace '(?m)\\s+$', ''     ",
-    "    Set-Content -Path $fullpath -Value $prop.value         ",
-    "  }                                                        ",
-    "}                                                          "
+    "''                                                           ",
+    "if ($null -ne $manifest.files) {                             ",
+    "  foreach ($prop in $manifest.files.psobject.Properties) {   ",
+    "    if ($prop.Name -like 'default.*') {                      ",
+    "      $filename = $prop.Name -replace 'default',$app         ",
+    "    } else {                                                 ",
+    "      $filename = $prop.Name                                 ", 
+    "    }                                                        ",
+    "    $fullpath = Join-Path $dir $filename                     ",
+    "    info ('Writing to ' + $fullpath)                         ",
+    "    $prop.Value = $prop.Value -replace '(?m)\\s+$', ''       ",
+    "    Set-Content -Path $fullpath -Value $prop.value.trimend() ",
+    "  }                                                          ",
+    "}                                                            "
   ],
   "installer": {
     "script": [
-      "if ($manifest.psmodule.name -eq 'default') {       ",
-      "  $manifest.psmodule.name = $app                   ",
-      "}                                                  "
+      "if ($manifest.psmodule.name -eq 'default') { ",
+      "  $manifest.psmodule.name = $app             ",
+      "}                                            "
     ]
   },
   "uninstaller": {
     "script": [
-      "if ($manifest.psmodule.name -eq 'default') {       ",
-      "  $manifest.psmodule.name = $app                   ",
-      "}                                                  "
+      "if ($manifest.psmodule.name -eq 'default') { ",
+      "  $manifest.psmodule.name = $app             ",
+      "}                                            ",
+      "remove-module $app -ea 0                     "
     ]
   },
   "files" : {

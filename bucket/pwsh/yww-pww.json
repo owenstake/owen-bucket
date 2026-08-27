@@ -31,6 +31,11 @@
       "}                                              "
     ]
   },
+  "post_install" : [
+    "''                                 ",
+    "Build-ModuleManifest $app $dir     ",
+    "Register-ModuleAliasConflicts $app "
+  ],
   "uninstaller": {
     "script": [
       "if ($manifest.psmodule.name -eq 'default') {       ",
@@ -41,7 +46,7 @@
   "files" : {
     "default.psm1" : [
       "Add-Type -AssemblyName System.Windows.Forms    # Introduce .net clipboard               ",
-      "set-alias yww Copy-File                                                                 ",
+      "new-alias yww Copy-File                                                                 ",
       "set-alias pww Paste-File                                                                ",
       "set-alias pss Paste-FileAsShortcut                                                      ",
       "set-alias pll List-FileInClipboard                                                      ",
@@ -236,7 +241,8 @@
       "  return                                                                                ",
       "}                                                                                       ",
       "                                                                                        ",
-      "Export-ModuleMember -alias * -Function *                                                "
+      "# Export-ModuleMember -alias * -Function *                                              ",
+      "# Export-ModuleMember -Function * -alias 'yww','pww'                                     "
     ]
   }
 }

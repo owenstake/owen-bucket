@@ -4,10 +4,10 @@
   "homepage": "https://github.com/owenstake/owen-bucket",
   "depends": [
     "7zip",
-    "ouch",
-    "vim-tux",
     "draw.io",
-    "foxit-pdf-reader-2023"
+    "foxit-pdf-reader-2023",
+    "neovide",
+    "ouch"
   ],
   "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
   "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
@@ -55,7 +55,8 @@
       "                                                                                ",
       "INFO 'Set right click menu'                                                     ",
       "Add-RightClickScoopItemForAll 'vscode'                                          ",
-      "Add-RightClickScoopItemForAll 'vim-tux'                                         ",
+      "#Add-RightClickScoopItemForAll 'vim-tux'                                         ",
+      "Add-RightClickScoopItemForAll 'neovide'                                         ",
       "Add-RightClickScoopItemForAll '7zip'                                            ",
       "                                                                                ",
       "# Powershell.exe is better for debug than cmd.exe                               ",

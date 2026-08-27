@@ -1,10 +1,13 @@
 {
     "version": "3.0.0.707",
     "description": "微云同步助手",
-    "homepage": "https://www.weiyun.com/",
-    "license": {
-        "identifier": "Proprietary",
-        "url": "http://www.weiyun.com/xy.html"
+    "homepage": "https://www.weiyun.com",
+    "license": { "identifier": "Proprietary", "url": "http://www.weiyun.com/xy.html" },
+    "architecture": {
+        "64bit": {
+            "hash": "5B68807843E1F4A82A66E92AE931AB986CE4F4A664099CE3F27E93DF0403F1F9",
+            "url": "https://dldir1.qq.com/weiyun/WeiyunSyncInstall_Beta_1_3.0.0.707_20260421_161008_r0.exe#/dl.7z"
+        }
     },
     "shortcuts": [
         [
@@ -13,16 +16,6 @@
         ]
     ],
     "extract_dir": "weiyunsync",
-    "architecture": {
-        "64bit": {
-            "hash": "5B68807843E1F4A82A66E92AE931AB986CE4F4A664099CE3F27E93DF0403F1F9",
-            "url": "https://dldir1.qq.com/weiyun/WeiyunSyncInstall_Beta_1_3.0.0.707_20260421_161008_r0.exe#/dl.7z"
-        }
-    },
-    "post_install": [
-    ],
-    "pre_uninstall": [
-    ],
     "checkver": {
         "script": [
             "$url = 'https://www.weiyun.com/download.html'",
