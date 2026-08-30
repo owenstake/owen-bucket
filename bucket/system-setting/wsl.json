@@ -4,7 +4,7 @@
   "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
   "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
   "depends" : ["wsl-dashboard"],
-  "persist": ["systems"],
+  "persist": "systems",
   "installer": {
     "script": [
       "''                                            ",
@@ -18,7 +18,7 @@
     "''                                                                         ",
     "# Use Junction. DefaultBasePath is useless, just ai illution.              ",
     "$jun = Join-Path $env:LOCALAPPDATA wsl                                     ",
-    "$systemsDir = Join-Path $persist_dir $manifest.persist[0]                  ",
+    "$systemsDir = Join-Path $persist_dir $manifest.persist                     ",
     "if (test-path $jun) {                                                      ",
     "  WARN ($jun + ' already exists, should manually fix/delete it !!')        ",
     "  exit 0                                                                   ",

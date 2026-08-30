@@ -7,10 +7,10 @@
   "depends": [ "7zip", "git", "powershell" ],
   "apps_matrix": [
     // Install first
-    "air-scoop", "owen-install-buckets", 
+    "scoop-enhacne", "owen-install-buckets", 
 
     // owen system setting . No depends first
-    "xdg", "scoop-utils", "config-explorer",
+    "xdg", "config-explorer",
     "config-startup", "config-right-click-menu", "config-file-association",
     "config-right-click-menu-expansion", "config-realtime-protection",
 
@@ -41,7 +41,7 @@
     "macchina", "ouch", "procs", "sd", "starship",
     "tealdeer", "tokei", "watchexec", "zoxide",
 
-    "ffmpeg", 
+    "ffmpeg",
 
     // UI simple tool
     "Snipaste", "ScreenToGif", "Flux", "Everything",
@@ -57,7 +57,7 @@
     "BaiduNetdisk", "Firefox", "Foxit-pdf-reader-2023", "Foxmail", "googlechrome",
     "HeidiSQL", "i4", "Mobaxterm", "Motrix", "typora-1.9.5", "Q-dir", "Wechat",
     "wxwork", "obsidian", "Thunder", "ThunderVideo", "Tor-browser",
-    "vagrant", "vlc", "qq", "xmind", "zotero", "quarkpan",
+    "vagrant", "vlc", "qq-nt", "xmind", "zotero", "quarkpan",
 
     // owen custom ui app
     "owen-bucket/kuwo", "owen-bucket/360DrvMgr", "weiyunsync",
@@ -75,6 +75,50 @@
       "WARN 'Use powershell 7 !!!!'                                                              ",
       "$installed = (scoop list).name + $app                                                     ",
       "$targetApps = $manifest.depends + $manifest.apps_matrix + $app                            ",
+      "                                                                                          ",
+      "# 6. 列出所有 app 的依赖软件（不依赖本地安装状态）                                      ",
+      "Write-Host ''                                                                           ",
+      "Write-Host '📦 各应用的依赖软件清单：' -ForegroundColor Cyan                            ",
+      "Write-Host ('─' * 50) -ForegroundColor DarkGray                                         ",
+      "                                                                                        ",
+      "$allDeps = @()                                                                          ",
+      "                                                                                        ",
+      "foreach ($a in $targetApps) {                                                           ",
+      "  $appName = $a.Split('/')[-1].Trim()                                                   ",
+      "  $bucket  = if ($a -match '/') { $a.Split('/')[0].Trim() } else { 'main' }             ",
+      "                                                                                        ",
+      "  # 远程拉取 manifest（不要求本地已安装）                                               ",
+      "  $appDeps = @()                                                                        ",
+      "  $remoteManifest = scoop cat $appName 2>$null                                          ",
+      "  if ($remoteManifest) {                                                                ",
+      "    $parsed = $remoteManifest | ConvertFrom-Json                                        ",
+      "    if ($parsed.depends) {                                                              ",
+      "      $appDeps = @($parsed.depends | ForEach-Object { $_.Split('/')[-1].Trim() })       ",
+      "    }                                                                                   ",
+      "  }                                                                                     ",
+      "                                                                                        ",
+      "  if ($appDeps.Count -gt 0) {                                                           ",
+      "    Write-Host ('  🔗 ' + $appName + ' (' + $bucket + ')') -ForegroundColor Yellow      ",
+      "    Write-Host ('     依赖: ' + ($appDeps -join ', ')) -ForegroundColor White           ",
+      "    $allDeps += $appDeps                                                                ",
+      "  } else {                                                                              ",
+      "    Write-Host ('  ✅ ' + $appName + ' (' + $bucket + ')') -ForegroundColor Green       ",
+      "    Write-Host '     无额外依赖' -ForegroundColor DarkGray                              ",
+      "  }                                                                                     ",
+      "}                                                                                       ",
+      "                                                                                        ",
+      "# 汇总去重                                                                              ",
+      "$allDeps = $allDeps | Select-Object -Unique                                             ",
+      "                                                                                        ",
+      "Write-Host ('─' * 50) -ForegroundColor DarkGray                                         ",
+      "if ($allDeps.Count -gt 0) {                                                             ",
+      "  Write-Host ('📋 所有依赖汇总（去重）: ' + ($allDeps -join ', ')) -ForegroundColor Cyan",
+      "} else {                                                                                ",
+      "  Write-Host '📋 所有应用均无额外依赖。' -ForegroundColor Green                         ",
+      "}                                                                                       ",
+      "                                                                                          ",
+      "$targetApps = $targetApps + $allDeps | Select-Object -Unique                              ",
+      "                                                                                          ",
       "$toInstall = @($targetApps | Where-Object { $_.Split('/')[-1].Trim() -notin $installed }) ",
       "                                                                                          ",
       "$trimTargetApps = @($targetApps | ForEach-Object {$_.Split('/')[-1].Trim()})              ",
@@ -99,7 +143,3 @@
   },
   "uninstaller": { "script": [ ] }
 }
-
-
-
-

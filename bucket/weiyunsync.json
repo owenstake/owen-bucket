@@ -1,30 +1,34 @@
 {
-    "version": "3.0.0.707",
-    "description": "微云同步助手",
-    "homepage": "https://www.weiyun.com",
-    "license": { "identifier": "Proprietary", "url": "http://www.weiyun.com/xy.html" },
-    "architecture": {
-        "64bit": {
-            "hash": "5B68807843E1F4A82A66E92AE931AB986CE4F4A664099CE3F27E93DF0403F1F9",
-            "url": "https://dldir1.qq.com/weiyun/WeiyunSyncInstall_Beta_1_3.0.0.707_20260421_161008_r0.exe#/dl.7z"
-        }
-    },
-    "shortcuts": [
-        [
-            "Bin\\weiyunsync.exe",
-            "微云同步助手"
-        ]
-    ],
-    "extract_dir": "weiyunsync",
-    "checkver": {
-        "script": [
-            "$url = 'https://www.weiyun.com/download.html'",
-            "$resp = Invoke-WebRequest -Uri $url -TimeoutSec 10",
-            "$cont = $resp.Content",
-            "$pattern = 'https://jsonschema.qpic.cn.*/config'",
-            "$jsUrl = [regex]::Match($cont, $pattern).Value",
-            "(Invoke-WebRequest -Uri $jsUrl -TimeoutSec 10).Content"
-        ],
-        "jsonpath": "$.windows_sync.version"
+  "version": "3.0.0.707",
+  "description": "微云同步助手",
+  "homepage": "https://www.weiyun.com",
+  "license": { "identifier": "Proprietary", "url": "http://www.weiyun.com/xy.html" },
+  "persist" : ["weiyun"],
+  "env_set": {
+    "weiyun": "$persist_dir\\weiyun"
+  },
+  "architecture": {
+    "64bit": {
+      "hash": "5B68807843E1F4A82A66E92AE931AB986CE4F4A664099CE3F27E93DF0403F1F9",
+      "url": "https://dldir1.qq.com/weiyun/WeiyunSyncInstall_Beta_1_3.0.0.707_20260421_161008_r0.exe#/dl.7z"
     }
+  },
+  "shortcuts": [
+    [
+      "Bin\\weiyunsync.exe",
+      "微云同步助手"
+    ]
+  ],
+  "extract_dir": "weiyunsync",
+  "checkver": {
+    "script": [
+      "$url = 'https://www.weiyun.com/download.html'",
+      "$resp = Invoke-WebRequest -Uri $url -TimeoutSec 10",
+      "$cont = $resp.Content",
+      "$pattern = 'https://jsonschema.qpic.cn.*/config'",
+      "$jsUrl = [regex]::Match($cont, $pattern).Value",
+      "(Invoke-WebRequest -Uri $jsUrl -TimeoutSec 10).Content"
+    ],
+    "jsonpath": "$.windows_sync.version"
+  }
 }

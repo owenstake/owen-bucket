@@ -6,11 +6,11 @@
   "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
   "depends": [
     "xdg",
-    "scoop-utils"
+    "scoop-enhance"
   ],
   "start_apps" : [
     "owen-keyboard",
-    "qq",
+    "qq-nt",
     "v2rayN",
     "wechat",
     "weiyunsync",
@@ -40,6 +40,7 @@
     ]
   },
   "post_install": [
+    "''                                           ",
     "register_startup_hook                        ",
     "$apps = $manifest.start_apps                 ",
     "ForEach ($a in $apps) {                      ",
@@ -66,7 +67,7 @@
       "                                                                                ",
       "Function Add-StartupForScoopApp($app) {                                         ",
       "  if ($lnkfile = Get-LnkForScoopApp $app) {                                     ",
-      "    copy-item $lnkFile $xdg_start_dir/ -Force   -PassThru | ForEach-Object {    ",
+      "    copy-item $lnkFile $xdg_start_dir/ -Force -PassThru | ForEach-Object {      ",
       "      $_.LastWriteTime = $_.CreationTime = Get-Date                             ",
       "    }                                                                           ",
       "  } else {                                                                      ",
