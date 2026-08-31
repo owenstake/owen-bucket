@@ -69,7 +69,30 @@
     ]
   },
   "post_install" : [
-    "Register-ModuleAliasConflicts $app "
+    "''                                                                                     ",
+    "Register-ModuleAliasConflicts $app                                                     ",
+    "                                                                                       ",
+    "INFO 'Patching for scoop-completion'                                                   ",
+    "$filePath = Join-Path (scoop prefix scoop-completion) 'scoop-completion.psm1'          ",
+    "                                                                                       ",
+    "# 1. 读取文件内容                                                                      ",
+    "$content = Get-Content $filePath                                                       ",
+    "                                                                                       ",
+    "# 2. 插入新代码到第 67 行                                                              ",
+    "$insertLine = '$script:ScoopCommands = (scoop help 6>$null).command'                   ",
+    "$lineNumber = 67                                                                       ",
+    "$content = $content[0..($lineNumber - 2)] +                                            ",
+    "$insertLine + $content[($lineNumber - 1)..($content.Length - 1)]                       ",
+    "                                                                                       ",
+    "# 3. 进行三处文本替换（注意：| 是正则特殊字符，必须用 \\| 转义）                       ",
+    "$content = $content -replace 'uninstall\\|cleanup', 'uninstall|reinstall|re|cd|cleanup'",
+    "$content = $content -replace 'download\\|cat', 'download|cat|bat|vim'                  ",
+    "$content = $content -replace 'install\\|info', 'install|in|info'                       ",
+    "                                                                                       ",
+    "# 4. 将修改后的内容写回文件                                                            ",
+    "$content | Set-Content $filePath -Encoding UTF8                                        ",
+    "                                                                                       ",
+    "Write-Host '✅ 所有修改已成功应用到 ' $filePath -ForegroundColor Green                 "
   ],
   "uninstaller": {
     "script": [
@@ -89,13 +112,13 @@
       "  remove-item $fullpath                                                    ",
       "}                                                                          ",
       "                                                                           ",
-      "$scoopSubcommands = $scoopCommandFiles | ForEach-Object {                   ",
+      "$scoopSubcommands = $scoopCommandFiles | ForEach-Object {                  ",
       "  $_.Name -replace '^scoop-|\\.ps1$', ''                                   ",
       "}                                                                          ",
-      "foreach ($c in $scoopSubcommands) {                                            ",
-      "  scoop alias rm $c                                                           ",
-      "}                                                                              ",
-      "INFO ('Remove scoop subcommands: ' + $scoopSubcommands )                    ",
+      "foreach ($c in $scoopSubcommands) {                                        ",
+      "  scoop alias rm $c                                                        ",
+      "}                                                                          ",
+      "INFO ('Remove scoop subcommands: ' + $scoopSubcommands )                   ",
       "                                                                           "
     ]
   },
