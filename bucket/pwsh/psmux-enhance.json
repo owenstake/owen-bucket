@@ -23,7 +23,7 @@
   "installer": {
     "script": [
       "''                                              ",
-      "info 'Add hook to ~/.psmux.conf'                ",
+      "INFO 'Add hook to ~/.psmux.conf'                ",
       "$content = 'source-file {0}/psmux.conf' -f $dir ",
       "Set-Content -Path ~/.psmux.conf -Value $content "
     ]

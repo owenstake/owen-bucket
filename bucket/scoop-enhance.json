@@ -440,16 +440,16 @@
       "scoop cat $app | nvim - -R -c 'set ft=json'                                         "
     ],
     "scoop-in.ps1": [
-      "# Summary: in is alias for install            ",
-      "scoop install @args                           "
+      "# Summary: in is alias for install ",
+      "scoop install @args                "
     ],
     "scoop-un.ps1": [
-      "# Summary: un is alias for uninstall          ",
-      "scoop uninstall @args                         "
+      "# Summary: un is alias for uninstall ",
+      "scoop uninstall @args                "
     ],
     "scoop-re.ps1": [
-      "# Summary: re is alias for reinstall          ",
-      "scoop reinstall @args                         "
+      "# Summary: re is alias for reinstall ",
+      "scoop reinstall @args                "
     ]
   }
 }

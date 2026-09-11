@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "description": "Google chrome with owen config.",
+  "description": "Google chrome with owen configuration.",
   "homepage": "https://github.com/owenstake/owen-bucket",
   "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
   "hash" : "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
@@ -8,16 +8,19 @@
   "installer": { "script": [ ] },
   "persist": "UserData",
   "post_install" : [
+    "''                                                                                    ",
     "# Persist dir is created after installer                                              ",
-    "$chromeUserData = $ENV:LOCALAPPDATA + '/Google/Chrome/User Data'                      ",
+    "$chromeUserData = $ENV:LOCALAPPDATA + '\\Google\\Chrome\\User Data'                   ",
     "Remove-Item -Path $chromeUserData -Force -Recurse -ea 0                               ",
     "                                                                                      ",
     "$persistUserData = Join-Path $persist_dir 'UserData'                                  ",
     "New-Item -ItemType Junction -Path $chromeUserData -target $persistUserData | Out-Null ",
+    "WARN ('New Junction at {0}, target for {1}' -f $chromeUserData,$persistUserData)      ",
     "                                                                                      "
   ],
   "uninstaller": {
     "script": [
+      "''                                                               ",
       "INFO 'Remove Junction for chrome user data'                      ",
       "$chromeUserData = $ENV:LOCALAPPDATA + '/Google/Chrome/User Data' ",
       "Remove-Item -Path $chromeUserData -Force -Recurse -ea 0          ",
@@ -25,6 +28,7 @@
     ]
   },
   "post_uninstall" :[
+    "''                                                  ",
     "Warn 'Do it manully => scoop uninstall googlechrome'"
   ]
 }

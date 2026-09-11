@@ -67,7 +67,7 @@
     "owen-windows-terminal-preview",
 
     // Final
-    "scoop-search", "scoop-completion",
+    "scoop-completion",
   ],
   "installer": {
     "script": [
