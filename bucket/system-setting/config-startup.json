@@ -63,6 +63,7 @@
       "    $env:XDG_CONFIG_HOME                                                        ",
       "  } else { $env:APPDATA }                                                       ",
       "$xdg_start_dir = Join-Path $base_config_dir 'autostart'                         ",
+      "New-Item -ItemType Directory -Path $xdg_start_dir -Force                        ",
       "$scoopLnkDir = Join-Path ([Environment]::GetFolderPath('Programs')) 'Scoop Apps'",
       "                                                                                ",
       "Function Add-StartupForScoopApp($app) {                                         ",
