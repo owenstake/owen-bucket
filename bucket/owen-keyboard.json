@@ -1,11 +1,10 @@
 {
-  "version": "1.0.0",
+  "version": "nightly",
   "description": "Owen's custom AutoHotkey keyboard enhancement toolkit.",
   "homepage": "https://github.com/yourname/owen-keyboard",
-  "url": "https://github.com/owenstake/owen-keyboard/archive/refs/tags/v1.0.0.zip",
-  "hash": "FF22683E12A83C0A97DEAE203A570C7B9BB172C7770B162DCB9343ABCFC3D1E7",
+  "url": "https://github.com/owenstake/owen-keyboard/archive/refs/heads/main.zip",
   "depends": "autohotkey1.1",
-  "extract_dir": "owen-keyboard-1.0.0",
+  "extract_dir": "owen-keyboard-main",
   "env_set": {
     // "OWEN_KEYBOARD_DIR": "$dir"
   },
@@ -35,11 +34,12 @@
     ]
   },
   "post_install": [
+    "''",
     "Write-Host '正在配置 Owen Keyboard 开机自启...' -ForegroundColor Green",
-    "$lnkPath = $env:xdg_config_home + '/autostart/' + $app + '.lnk' ",
-    "info $lnkPath",
-    "$shell = New-Object -ComObject WScript.Shell",
-    "$shortcut = $shell.CreateShortcut($lnkPath)",
+    "$lnkPath = $env:xdg_config_home + '/autostart/' + $app + '.lnk'       ",
+    "info $lnkPath                                                         ",
+    "$shell = New-Object -ComObject WScript.Shell                          ",
+    "$shortcut = $shell.CreateShortcut($lnkPath)                           ",
     "$shortcut.TargetPath = \"$dir\\keyremap.ahk\"",
     "$shortcut.WorkingDirectory = \"$dir\"",
     "$shortcut.Description = 'Owen Custom AHK Toolkit'  ",
