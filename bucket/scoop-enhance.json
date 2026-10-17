@@ -2,7 +2,6 @@
   "version": "1.0",
   "description": "scoop enhance",
   "homepage": "https://github.com/owenstake/owen-bucket",
-  "depends": [],
   "url": "https://github.com/owenstake/owen-bucket/releases/download/v1.0.0/Empty.txt",
   "hash": "2E1CFA82B035C26CBBBDAE632CEA070514EB8B773F616AAEAF668E2F0BE8F10D",
   "depends" : ["scoop-completion"],
@@ -37,6 +36,7 @@
       "  $manifest.psmodule.name = $app                                               ",
       "}                                                                              ",
       "                                                                               ",
+      "# Add scoop subcommands                                                        ",
       "$shimsDir = Split-Path (Get-Command scoop.ps1).Source -Parent                  ",
       "$scoopCommandFiles = Get-ChildItem -LiteralPath $dir -Filter 'scoop-*.ps1'     ",
       "                                                                               ",
@@ -50,6 +50,7 @@
       "$scoopCommandFiles | Copy-Item -Destination $shimsDir -force                   ",
       "INFO ('Add scoop subcommands: ' + $newScoopCommands )                          ",
       "                                                                               ",
+      "# Change scoop repo to airscoop                                                ",
       "$scoopDir = scoop prefix scoop                                                 ",
       "$repoUrl = git -C $scoopDir config --get remote.origin.url                     ",
       "$repoBranch = git -C $scoopDir branch --show-current                           ",
@@ -88,7 +89,7 @@
     "# ArgumentCompleter for new scoop subcommand                                  ",
     "# Local packages for ArgumentCompleter                                        ",
     "$content = $content.replace('uninstall|cleanup',                              ",
-    "                            'uninstall|reinstall|re|cd|cleanup')              ",
+    "                            'uninstall|un|reinstall|re|cd|up|cleanup')        ",
     "# Remote and Local packages for ArgumentCompleter                             ",
     "$content = $content.replace('download|cat', 'download|bat|v|vim|cat')         ",
     "# Remote packages for ArgumentCompleter                                       ",
@@ -106,7 +107,6 @@
       "}                                                                          ",
       "Unregister-ModuleAliasConflicts $app                                       ",
       "remove-module $app -ea 0                                                   ",
-      "import-module scoop-completion -force                                      ",
       "                                                                           ",
       "$files = Get-ChildItem -LiteralPath $dir -Filter 'scoop-*.ps1'             ",
       "                                                                           ",
@@ -124,6 +124,10 @@
       "  scoop alias rm $c                                                        ",
       "}                                                                          ",
       "INFO ('Remove scoop subcommands: ' + $scoopSubcommands )                   ",
+      "                                                                           ",
+      "INFO 'Uninstall scoop-completion'                                          ",
+      "remove-module scoop-completion -force                                      ",
+      "scoop uninstall scoop-completion                                           ",
       "                                                                           "
     ]
   },
@@ -446,6 +450,10 @@
     "scoop-un.ps1": [
       "# Summary: un is alias for uninstall ",
       "scoop uninstall @args                "
+    ],
+    "scoop-un.ps1": [
+      "# Summary: up is alias for update ",
+      "scoop update @args                "
     ],
     "scoop-re.ps1": [
       "# Summary: re is alias for reinstall ",

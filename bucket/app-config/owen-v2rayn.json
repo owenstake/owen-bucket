@@ -25,7 +25,7 @@
       "$u = [System.Text.Encoding]::Unicode.GetString(                   ",
       "    [System.Convert]::FromBase64String($e)                        ",
       ")                                                                 ",
-      "$addUrls = ('localhost.*.qq.com',$u)                              ",
+      "$addUrls = ('localhost.*.qq.com','taobao.com',$u)                 ",
       "$existUrls = $js.SystemProxyItem.SystemProxyExceptions -split ';' ",
       "ForEach ( $i in $addUrls ) {                                      ",
       "    if (!($existUrls.contains($i))) {                             ",

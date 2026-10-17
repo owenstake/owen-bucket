@@ -40,7 +40,7 @@
       "  } else {                                                                          ",
       "    INFO 'Profile no exist, no bakcup'                                              ",
       "  }                                                                                 ",
-      "  mkdir -Force (Split-Path -Path $p -Parent)                                        ",
+      "  $null = mkdir -Force (Split-Path -Path $p -Parent)                                ",
       "  Set-Content -Path $p -Value ('import-module {0}' -f $app)                         ",
       "  INFO ('Update powershell profile {0}' -f $p)                                      ",
       "}                                                                                   ",
