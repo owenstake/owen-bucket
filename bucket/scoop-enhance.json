@@ -71,7 +71,7 @@
   },
   "post_install" : [
     "''                                                                            ",
-    "Register-ModuleAliasConflicts $app                                            ",
+    "# Register-ModuleAliasConflicts $app                                          ",
     "                                                                              ",
     "INFO 'Patching scoop-completion for custom scoop subcommand'                  ",
     "$filePath = Join-Path (scoop prefix scoop-completion) 'scoop-completion.psm1' ",
@@ -105,7 +105,7 @@
       "if ($manifest.psmodule.name -eq 'default') {                               ",
       "  $manifest.psmodule.name = $app                                           ",
       "}                                                                          ",
-      "Unregister-ModuleAliasConflicts $app                                       ",
+      "# Unregister-ModuleAliasConflicts $app                                     ",
       "remove-module $app -ea 0                                                   ",
       "                                                                           ",
       "$files = Get-ChildItem -LiteralPath $dir -Filter 'scoop-*.ps1'             ",

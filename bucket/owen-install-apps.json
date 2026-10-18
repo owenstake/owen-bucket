@@ -7,7 +7,7 @@
   "depends": [ "7zip", "git", "powershell" ],
   "apps_matrix": [
     // Install first
-    "scoop-enhance", "owen-install-buckets", 
+    "alias-blacklist", "scoop-enhance", "owen-install-buckets", 
 
     // owen system setting . No depends first
     "xdg", "config-explorer",
