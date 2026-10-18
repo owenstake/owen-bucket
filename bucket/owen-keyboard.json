@@ -9,7 +9,7 @@
     // "OWEN_KEYBOARD_DIR": "$dir"
   },
   // "bin": "keyremap.ahk",
-  "shortcuts": [ [ "keyremap.ahk", "keyremap"] ],
+  "shortcuts": [ [ "keyremap.ahk", "owen-keyboard"] ],
   "psmodule": { "name": "default" },
   "pre_install" : [
     "''                                                         ",
